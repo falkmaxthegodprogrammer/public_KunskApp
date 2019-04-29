@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KunskApp</string>
+    <string name="title_activity_place_map">PlacesMap</string>
+    <string name="title_activity_place">PlaceActivity</string>
+</resources>
