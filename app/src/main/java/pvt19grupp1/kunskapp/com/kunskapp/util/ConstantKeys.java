@@ -17,7 +17,7 @@ public class ConstantKeys {
     // GOOGLE PLACES API
 
     public static final String API_GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com";
-    public static final String API_GOOGLE_PLACES_KEY = "AIzaSyA8AavtO2TeNenIopl64aHSndgADkxJYWM";
+    public static final String API_GOOGLE_PLACES_KEY = "";
 
     // GOOGLE DIRECTION API
 
