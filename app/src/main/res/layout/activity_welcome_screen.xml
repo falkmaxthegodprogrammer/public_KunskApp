@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarid"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/colorAccent"
+        android:elevation="0dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:text="KunskApp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="36dp"
+            android:textStyle="bold" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="272dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
+
+    <Button
+        android:id="@+id/btn_student"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="ELEV"
+        android:background="@color/colorPrimary"
+        android:layout_margin="1dp"
+        android:drawableRight="@android:drawable/ic_menu_directions"
+        android:drawablePadding="2dip"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:singleLine="true"
+        android:gravity="center"
+
+        />
+    <Button
+        android:id="@+id/btn_teacher"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="LÄRARE"
+        android:background="@color/colorPrimary"
+        android:layout_margin="1dp"
+        android:drawableRight="@android:drawable/ic_menu_directions"
+        android:drawablePadding="2dip"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:singleLine="true"
+        android:gravity="center"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:background="#FFFFFF"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="\n\nKunskApp är ett digitalt verktyg som främjar elevers inlärning, hälsa och välmående."
+        android:textStyle="italic" />
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarid2"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/colorAccent"
+        android:elevation="0dp"
+        android:gravity="center">
+
+
+    </android.support.design.widget.AppBarLayout>
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/filters_pointsofinterest"
+        android:title="Intressanta platser"
+    />
+    <item android:id="@+id/filters_churches"
+        android:title="Kyrkor"
+        />
+    <item android:id="@+id/filters_schools"
+        android:title="Skolor"
+        />
+    <item android:id="@+id/filters_artgallery"
+        android:title="Museum"
+        />
+    <item android:id="@+id/filters_naturalfeature"
+        android:title="Natur"
+        />
+    <item android:id="@+id/filters_nearby"
+        android:title="Platser i närheten"
+        />
+</menu>

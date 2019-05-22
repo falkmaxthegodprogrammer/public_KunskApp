@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app1="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical">
+
+
+<android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:gravity="center"
+    android:elevation="0dp"
+    android:id="@+id/appbarid"
+    android:background="@color/colorAccent"
+
+    >
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/common_google_signin_btn_icon_dark"/>
+
+
+</android.support.design.widget.AppBarLayout>
+    <Button
+        android:id="@+id/btn_start_quiz"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="STARTA TIPSPROMENAD"
+        android:background="@color/colorPrimary"
+        android:layout_margin="1dp"
+        android:drawableLeft="@android:drawable/ic_menu_directions"
+        android:drawablePadding="2dip"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:singleLine="true"
+        android:gravity="center"
+
+        />
+<Button
+    android:id="@+id/btn_my_quizwalks"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:text="MINA TIPSPROMENADER"
+    android:background="@color/colorPrimary"
+    android:layout_margin="1dp"
+    android:drawableLeft="@android:drawable/ic_menu_mapmode"
+    android:drawablePadding="2dip"
+    android:paddingLeft="30dip"
+    android:paddingRight="26dip"
+    android:singleLine="true"
+    android:gravity="center"
+
+    />
+
+<Button
+    android:id="@+id/btn_see_results"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:text="SE RESULTAT"
+    android:background="@color/colorPrimary"
+    android:layout_margin="1dp"
+    android:drawableLeft="@android:drawable/ic_menu_search"
+    android:drawablePadding="2dip"
+    android:paddingLeft="30dip"
+    android:paddingRight="26dip"
+    android:singleLine="true"
+    android:gravity="center"
+   />
+
+<Button
+    android:id="@+id/btn_create_quizwalk"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:text="NY TIPSPROMENAD"
+    android:background="@color/colorPrimary"
+    android:layout_margin="1dp"
+    android:drawableLeft="@android:drawable/ic_menu_add"
+    android:drawablePadding="2dip"
+    android:paddingLeft="30dip"
+    android:paddingRight="26dip"
+    android:singleLine="true"
+    android:gravity="center"
+
+   />
+
+    <Button
+        android:id="@+id/btn_settings"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="INSTÄLLNINGAR"
+        android:background="@color/colorPrimary"
+        android:layout_margin="1dp"
+        android:drawableLeft="@android:drawable/ic_menu_manage"
+        android:drawablePadding="2dip"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:singleLine="true"
+        android:gravity="center"
+
+        />
+
+
+
+</LinearLayout>
+

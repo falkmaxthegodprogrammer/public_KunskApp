@@ -12,12 +12,12 @@ public class ConstantKeys {
 
     // GOOGLE MAPS API
 
-    public static final String API_GOOGLE_MAPS_KEY = "";
+    public static final String API_GOOGLE_MAPS_KEY = "AIzaSyA8AavtO2TeNenIopl64aHSndgADkxJYWM ";
 
     // GOOGLE PLACES API
 
     public static final String API_GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com";
-    public static final String API_GOOGLE_PLACES_KEY = "";
+    public static final String API_GOOGLE_PLACES_KEY = "AIzaSyA8AavtO2TeNenIopl64aHSndgADkxJYWM ";
 
     // GOOGLE DIRECTION API
 

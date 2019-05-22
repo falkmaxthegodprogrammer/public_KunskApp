@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "998214352365",
+    "firebase_url": "https://kunskapp-dd121.firebaseio.com",
+    "project_id": "kunskapp-dd121",
+    "storage_bucket": "kunskapp-dd121.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998214352365:android:185fe20c7b63b208",
+        "android_client_info": {
+          "package_name": "pvt19grupp1.kunskapp.com.kunskapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998214352365-v1bo4mpd3khk04ndcmarchek7e3e5iq8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pvt19grupp1.kunskapp.com.kunskapp",
+            "certificate_hash": "1b7cf82cc58df36aa639b5b3648d0fa0ee5a9ab5"
+          }
+        },
+        {
+          "client_id": "998214352365-520k48ar6fmleiretq2f0o46esbg8cjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIqh87rCbSRP05PGDbZs_Q4KQzGymfjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998214352365-520k48ar6fmleiretq2f0o46esbg8cjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
