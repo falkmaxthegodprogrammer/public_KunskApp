@@ -62,7 +62,6 @@ public class GooglePlaceModel implements Parcelable {
         this.lat = in.readString();
         this.lng = in.readString();
 
-
     }
 
     @Override

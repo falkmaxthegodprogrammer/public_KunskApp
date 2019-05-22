@@ -12,14 +12,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnPlaceListListener;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
+import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
+import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.QuizPlaceViewModel;
 
 public class QuizListFragment extends Fragment implements OnPlaceListListener {
 
@@ -27,6 +31,7 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
     private PlaceRecyclerAdapter placeRecyclerAdapter;
     private PlaceListViewModel mPlacesListViewModel;
     private RecyclerView recyclerView;
+    private QuizPlaceViewModel mQuizPlacesListViewModel;
 
     public QuizListFragment() {
 
@@ -46,6 +51,8 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mPlacesListViewModel = ViewModelProviders.of(getActivity()).get(PlaceListViewModel.class);
+        mQuizPlacesListViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
+
         subscribeObservers();
     }
 
@@ -76,14 +83,18 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
 
     @Override
     public void onCategoryClick(String category) {
-
+        Toast.makeText(getActivity(), "Clicked on category", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onButtonClick(int position) {
-        Intent intent = new Intent(getActivity(), PlaceActivity.class);
-        intent.putExtra("place", placeRecyclerAdapter.getSelectedPlace(position));
-        GooglePlaceModel place = placeRecyclerAdapter.getSelectedPlace(position);
-        System.out.println(place.getName());
+        System.out.println(placeRecyclerAdapter.getSelectedPlace(position));
+        Toast.makeText(getActivity(), "Lade till " + placeRecyclerAdapter.getSelectedPlace(position).getName() + " till tipspromenaden!", Toast.LENGTH_SHORT).show();
+        QuizPlace qp = new QuizPlace(placeRecyclerAdapter.getSelectedPlace(position));
+        List<QuizPlace> qPlaces = new ArrayList<>();
+        qPlaces.add(qp);
+        //mQuizPlacesListViewModel.setmQuizPlaces(qPlaces);
+        mQuizPlacesListViewModel.addQuizPlace(qp);
+
     }
 }

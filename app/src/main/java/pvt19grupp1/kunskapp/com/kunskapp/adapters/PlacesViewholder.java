@@ -25,7 +25,12 @@ public class PlacesViewholder extends RecyclerView.ViewHolder implements View.On
         score = itemView.findViewById(R.id.place_social_score);
         addButton = itemView.findViewById(R.id.btn_add);
 
-        addButton.setOnClickListener(this);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPlaceListListener.onButtonClick(getAdapterPosition());
+            }
+        });
 
         itemView.setOnClickListener(this);
     }
@@ -35,6 +40,6 @@ public class PlacesViewholder extends RecyclerView.ViewHolder implements View.On
         onPlaceListListener.onPlaceClick(getAdapterPosition());
     }
 
-   // @Override
-    //public void onButtonClick(View v) { onPlaceListListener.onButtonClick(getAdapterPosition()); }
+
+
 }

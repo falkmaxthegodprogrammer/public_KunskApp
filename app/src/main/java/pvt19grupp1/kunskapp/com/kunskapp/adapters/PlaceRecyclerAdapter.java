@@ -66,13 +66,7 @@ public class PlaceRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((PlacesViewholder) viewHolder).name.setText(mGooglePlaces.get(i).getName());
             ((PlacesViewholder) viewHolder).category.setText(mGooglePlaces.get(i).getTypes()[0]);
             ((PlacesViewholder) viewHolder).score.setText(String.valueOf(mGooglePlaces.get(i).getUser_ratings_total()));
-            ((PlacesViewholder) viewHolder).addButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    GooglePlaceModel testPlace = mGooglePlaces.get(i);
-                    System.out.println(testPlace.getName());
-                }
-            });
+
         }
     }
 

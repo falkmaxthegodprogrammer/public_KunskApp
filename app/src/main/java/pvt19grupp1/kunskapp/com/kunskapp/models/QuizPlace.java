@@ -6,11 +6,14 @@ import java.util.Collection;
 public class QuizPlace {
 
     private GooglePlaceModel googlePlace;
+    private String name;
     private double rating;
     private Collection<Question> questions;
 
-    public QuizPlace(GooglePlaceModel googlePlace, double rating, Collection<Question> questions) {
+    public QuizPlace(GooglePlaceModel googlePlace) {
         this.googlePlace = googlePlace;
+        this.name = googlePlace.getName();
+        this.rating = googlePlace.getRating();
         this.rating = rating;
         this.questions = new ArrayList<Question>();
     }
@@ -37,6 +40,20 @@ public class QuizPlace {
 
     public void setQuestions(Collection<Question> questions) {
         this.questions = questions;
+    }
+
+    public GooglePlaceModel getGooglePlace() {
+        return googlePlace;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == this) return true;
+        return googlePlace.getId().equals(((QuizPlace) o).getGooglePlace().getId());
     }
 
     @Override
