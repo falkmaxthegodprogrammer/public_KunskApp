@@ -2,6 +2,7 @@ package pvt19grupp1.kunskapp.com.kunskapp;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,8 +11,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
+
 public class PlaceMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "placeMapActivity";
     private GoogleMap mMap;
 
     @Override
@@ -22,8 +26,15 @@ public class PlaceMapActivity extends FragmentActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        getIncomingIntent();
     }
 
+    private void getIncomingIntent() {
+        if(getIntent().hasExtra("placesToMap")) {
+            GooglePlaceModel googlePlace = getIntent().getParcelableExtra("place");
+            Log.d(TAG, "getIncomingIntent: " + googlePlace.getName());
+        }
+    }
 
     /**
      * Manipulates the map once available.

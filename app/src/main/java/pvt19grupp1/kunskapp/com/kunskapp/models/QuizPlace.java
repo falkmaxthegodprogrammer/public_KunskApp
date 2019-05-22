@@ -3,19 +3,21 @@ package pvt19grupp1.kunskapp.com.kunskapp.models;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class QuizPlace extends Place {
+public class QuizPlace {
 
+    private GooglePlaceModel googlePlace;
     private double rating;
     private Collection<Question> questions;
 
-    public QuizPlace(String name, String desc, String imageIcon, double lat, double lng, String[] types, int googlePlaceId, double viewportLatNE,
-                     double viewportLngNE, double viewportLatSW, double viewportLngSW) {
-
-        super(name, desc, imageIcon, lat, lng, types, googlePlaceId, viewportLatNE, viewportLngNE, viewportLatSW, viewportLngSW);
-
-        questions = new ArrayList<Question>();
+    public QuizPlace(GooglePlaceModel googlePlace, double rating, Collection<Question> questions) {
+        this.googlePlace = googlePlace;
+        this.rating = rating;
+        this.questions = new ArrayList<Question>();
     }
 
+    public QuizPlace() {
+
+    }
 
     public void addQuestion(Question question) {
         questions.add(question);

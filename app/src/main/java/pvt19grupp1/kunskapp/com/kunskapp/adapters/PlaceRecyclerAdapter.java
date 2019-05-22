@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -12,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import pvt19grupp1.kunskapp.com.kunskapp.CreateQuizWalkActivity;
+import pvt19grupp1.kunskapp.com.kunskapp.MainActivity;
 import pvt19grupp1.kunskapp.com.kunskapp.R;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 
@@ -51,7 +54,7 @@ public class PlaceRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
 
      /*   RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
         Glide.with(viewHolder.itemView.getContext())
@@ -63,6 +66,13 @@ public class PlaceRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((PlacesViewholder) viewHolder).name.setText(mGooglePlaces.get(i).getName());
             ((PlacesViewholder) viewHolder).category.setText(mGooglePlaces.get(i).getTypes()[0]);
             ((PlacesViewholder) viewHolder).score.setText(String.valueOf(mGooglePlaces.get(i).getUser_ratings_total()));
+            ((PlacesViewholder) viewHolder).addButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GooglePlaceModel testPlace = mGooglePlaces.get(i);
+                    System.out.println(testPlace.getName());
+                }
+            });
         }
     }
 

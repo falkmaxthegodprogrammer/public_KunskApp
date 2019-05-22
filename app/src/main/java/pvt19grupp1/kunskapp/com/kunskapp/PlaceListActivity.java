@@ -25,7 +25,6 @@ public class PlaceListActivity extends BaseActivity implements OnPlaceListListen
         private static final String TAG = "PlacesListActicity";
         private PlaceListViewModel mPlacesListViewModel;
         private PlaceRecyclerAdapter placeRecyclerAdapter;
-
         private RecyclerView recyclerView;
 
 
@@ -97,6 +96,11 @@ public class PlaceListActivity extends BaseActivity implements OnPlaceListListen
         public void onCategoryClick(String category) {
 
         }
+
+    @Override
+    public void onButtonClick(int position) {
+
+    }
 }
 
 

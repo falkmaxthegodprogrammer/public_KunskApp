@@ -5,7 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface PlaceApi {
+public interface  PlaceApi {
 
     //https://maps.googleapis.com/maps/api/place/textsearch/json?query=stockholm+point+of+interest&language=se&key=AIzaSyA8AavtO2TeNenIopl64aHSndgADkxJYWM
     //https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJF7QkuDsDLz4R0rJ4SsxFl9w&key=AIzaSyA8AavtO2TeNenIopl64aHSndgADkxJYWM

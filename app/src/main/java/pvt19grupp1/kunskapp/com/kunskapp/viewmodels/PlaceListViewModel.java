@@ -19,6 +19,7 @@ public class PlaceListViewModel extends ViewModel {
     public PlaceListViewModel() {
         mPlaceRepository = PlaceRepository.getInstance();
     }
+
     public LiveData<List<GooglePlaceModel>> getGooglePlaces() {
         return mPlaceRepository.getGooglePlaces();
     }
