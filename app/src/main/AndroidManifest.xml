@@ -20,10 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".FragmentTest"
-            android:label="@string/title_activity_fragment_test"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,8 +29,10 @@
         </activity>
         <activity android:name=".QuestionListActivity" />
         <activity android:name=".PlaceListActivity" />
-        <activity android:name=".CreateQuizWalkActivity"/>
-
+        <activity
+            android:name=".CreateQuizWalkActivity"
+            android:label="@string/title_activity_place"
+            android:theme="@style/AppTheme" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

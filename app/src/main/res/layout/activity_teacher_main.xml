@@ -26,6 +26,17 @@ android:orientation="vertical">
 
 
 </android.support.design.widget.AppBarLayout>
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <Button
         android:id="@+id/btn_start_quiz"
         android:layout_width="match_parent"
@@ -104,7 +115,10 @@ android:orientation="vertical">
 
         />
 
+        </android.support.v7.widget.LinearLayoutCompat>
+    </ScrollView>
 
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </LinearLayout>
 

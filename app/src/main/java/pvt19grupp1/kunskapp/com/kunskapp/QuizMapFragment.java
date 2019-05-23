@@ -8,9 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,7 +36,7 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
     View view;
     private PlaceListViewModel mPlacesListViewModel;
-
+    private SearchView searchView;
 
     SupportMapFragment mapFragment;
     GoogleMap mMap;
@@ -51,6 +57,7 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
             ft.replace(R.id.mapView, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -72,6 +79,21 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
         });
     }
 
+    private void initSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mPlacesListViewModel.searchPlaceApi(s+"+points+of+interest", "se");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -86,6 +108,10 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
         mMap.setOnMarkerClickListener(this);
     }
 
+    public void searchPlaceApi(String query, String language) {
+        mPlacesListViewModel.searchPlaceApi(query, language);
+
+    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -93,4 +119,6 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         return true;
     }
+
+
 }

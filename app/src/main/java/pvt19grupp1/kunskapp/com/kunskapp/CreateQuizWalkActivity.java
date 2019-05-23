@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -34,17 +39,55 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
     private ViewPager fragmentViewPager;
     private PlaceListViewModel mPlacesListViewModel;
-    private Button btnFilter;
-
+    private SearchView searchView;
+    private Toolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private AppBarLayout collapseAppBarLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizwalk);
 
+        searchView = findViewById(R.id.search_view);
+
         mPlacesListViewModel = ViewModelProviders.of(this).get(PlaceListViewModel.class);
 
-
         tabLayout = (TabLayout) findViewById(R.id.tablayoutid);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+        collapseAppBarLayout = findViewById(R.id.collapse_appbar_layout);
+        collapseAppBarLayout.setExpanded(true);
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 0 || tab.getPosition() == 1) {
+                    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) collapseAppBarLayout.getLayoutParams();
+                    params.height = 200; // COLLAPSED_HEIGHT
+                    collapseAppBarLayout.setLayoutParams(params);
+                    collapseAppBarLayout.setExpanded(true, true);
+
+                } else if(tab.getPosition() == 2) {
+                    CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams) collapseAppBarLayout.getLayoutParams();
+                    params.height = 0; // EXPANDED_HEIGHT
+
+                    collapseAppBarLayout.setLayoutParams(params);
+                    collapseAppBarLayout.setExpanded(false, true);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         appBarLayout = (AppBarLayout) findViewById(R.id.appbarid);
         fragmentViewPager = (ViewPager) findViewById(R.id.viewpager_id);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -58,7 +101,6 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         initSearchView();
 
         appBarLayoutBottom = (AppBarLayout) findViewById(R.id.appbarid2);
-        btnFilter = findViewById(R.id.btn_filter);
         //testRetroFitRequest();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
     }
@@ -73,7 +115,6 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     }
 
     private void initSearchView() {
-        final SearchView searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -117,5 +158,6 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         getMenuInflater().inflate(R.menu.place_search_filter_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
 }

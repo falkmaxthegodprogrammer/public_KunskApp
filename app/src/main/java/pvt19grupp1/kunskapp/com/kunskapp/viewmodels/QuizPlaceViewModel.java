@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
@@ -29,6 +30,11 @@ public class QuizPlaceViewModel extends ViewModel {
 
     public void addQuizPlace(QuizPlace qp) {
         mQuizPlaceRepository.addQuizPlace(qp);
+    }
+
+    public void clearQuizPlaces() {
+        List<QuizPlace> emptyList = new ArrayList<>();
+        mQuizPlaceRepository.setmQuizPlaces(emptyList);
     }
 
 

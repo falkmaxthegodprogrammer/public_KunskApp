@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +35,10 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
     private PlaceListViewModel mPlacesListViewModel;
     private RecyclerView recyclerView;
     private QuizPlaceViewModel mQuizPlacesListViewModel;
+    private SearchView searchView;
+    private Toolbar toolbar;
 
-    public QuizListFragment() {
 
-    }
 
     @Nullable
     @Override
@@ -45,6 +48,7 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
         initRecyclerView();
         //subscribeObservers();
         return view;
+
     }
 
     @Override
@@ -52,6 +56,10 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
         super.onActivityCreated(savedInstanceState);
         mPlacesListViewModel = ViewModelProviders.of(getActivity()).get(PlaceListViewModel.class);
         mQuizPlacesListViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
+            if(mQuizPlacesListViewModel.getQuizPlaces().getValue() == null) {
+                List<QuizPlace> tempList = new ArrayList<>();
+                mQuizPlacesListViewModel.setmQuizPlaces(tempList);
+            }
 
         subscribeObservers();
     }
@@ -73,6 +81,21 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
         });
     }
 
+    private void initSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mPlacesListViewModel.searchPlaceApi(s+"+points+of+interest", "se");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onPlaceClick(int position) {
         Intent intent = new Intent(getActivity(), PlaceActivity.class);
@@ -88,13 +111,19 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
 
     @Override
     public void onButtonClick(int position) {
-        System.out.println(placeRecyclerAdapter.getSelectedPlace(position));
-        Toast.makeText(getActivity(), "Lade till " + placeRecyclerAdapter.getSelectedPlace(position).getName() + " till tipspromenaden!", Toast.LENGTH_SHORT).show();
+        int initialSize = mQuizPlacesListViewModel.getQuizPlaces().getValue().size();
         QuizPlace qp = new QuizPlace(placeRecyclerAdapter.getSelectedPlace(position));
-        List<QuizPlace> qPlaces = new ArrayList<>();
-        qPlaces.add(qp);
-        //mQuizPlacesListViewModel.setmQuizPlaces(qPlaces);
         mQuizPlacesListViewModel.addQuizPlace(qp);
-
+        int currentSize = mQuizPlacesListViewModel.getQuizPlaces().getValue().size();
+        displayToastIfQuizPlaceAdded(initialSize, currentSize, qp.getName());
     }
+
+    public void displayToastIfQuizPlaceAdded(int initialSize, int currentSize, String name) {
+        if(currentSize > initialSize || initialSize == 0) {
+            Toast.makeText(getActivity(), "Lade till " + name + " till tipspromenaden!", Toast.LENGTH_SHORT).show();
+        } else if(currentSize <= initialSize) {
+            Toast.makeText(getActivity(), "Platsen " + name + " redan tillagd till tipspromenaden!", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
