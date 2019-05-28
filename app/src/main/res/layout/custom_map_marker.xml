@@ -1,0 +1,36 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_marker_view"
+    android:layout_width="44dp"
+    android:layout_height="44dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        app:civ_border_color="#fff"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null"
+        android:src="@mipmap/kunskapp_marker_round"/>
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="59dp">
+
+        <TextView android:text="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#FFF"
+            android:alpha="0.8"
+            android:id="@+id/place_position_in_quiz"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="32dp"
+          />
+    </RelativeLayout>
+</RelativeLayout>

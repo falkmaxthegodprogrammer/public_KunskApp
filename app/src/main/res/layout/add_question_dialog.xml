@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:src="@mipmap/kunskapplogga3_round" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:paddingLeft="2dp"
+            android:layout_height="wrap_content"
+            android:text="\n\LÄGG TILL FRÅGA: \n"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fråga..."
+            android:id="@+id/edit_text_question" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="2dp"
+        android:layout_height="wrap_content"
+        android:text="\n"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:paddingLeft="2dp"
+            android:layout_height="wrap_content"
+            android:text="SVARS-\nALTERNATIV"
+            android:layout_weight="50"
+            android:textSize="20dp"
+            android:gravity="left"
+            android:textColor="@color/colorAccent"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="RÄTT SVAR"
+            android:textSize="20dp"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="80"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+      >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="90"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Svarsalternativ 3..."
+            android:id="@+id/edit_text_question1"
+            android:singleLine="true"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Svarsalternativ 3..."
+                android:id="@+id/edit_text_question2"
+                android:singleLine="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Svarsalternativ 3..."
+                android:id="@+id/edit_text_question3"
+                android:singleLine="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Svarsalternativ 4..."
+                android:id="@+id/edit_text_question4"
+                android:singleLine="true"/>
+
+    </LinearLayout>
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:id="@+id/radiobuttons"
+            android:orientation="vertical"
+            >
+
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:checked="true"
+
+                 />
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+            />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                 />
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                 />
+
+
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\n\n\n"
+        android:visibility="invisible"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="bottom">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:text="AVBRYT"
+        android:textAlignment="center"
+        android:background="@drawable/button_border"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/dialogBtn_cancel"
+        android:padding="10dp" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:text="LÄGG TILL FRÅGA!"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+
+        android:background="@drawable/button_border"
+        android:id="@+id/dialogBtn_addQuestion"
+        android:padding="2dp"/>
+
+
+</LinearLayout>
+
+
+</LinearLayout>
