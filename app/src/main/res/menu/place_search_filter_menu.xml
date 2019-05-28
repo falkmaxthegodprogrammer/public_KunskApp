@@ -16,6 +16,6 @@
         android:title="Natur"
         />
     <item android:id="@+id/filters_nearby"
-        android:title="Platser i närheten"
+        android:title="Rensa Google-Places"
         />
 </menu>

@@ -53,6 +53,24 @@ public class PlaceApiClient {
         }, ConstantKeys.NETWORK_TIME_OUT_LIMIT, TimeUnit.MILLISECONDS);
     }
 
+    public void addPlace(GooglePlaceModel gpm) {
+        List<GooglePlaceModel> tempList = mGooglePlaces.getValue();
+
+        if(tempList == null) {
+            tempList = new ArrayList<>();
+            mGooglePlaces.setValue(tempList);
+        }
+
+        if(tempList != null) {
+            for (GooglePlaceModel gpmodel : tempList) {
+                if (gpmodel.equals(gpm))
+                    return;
+            }
+        }
+        tempList.add(gpm);
+        mGooglePlaces.setValue(tempList);
+    }
+
     private class RetrievePlacesRunnable implements Runnable {
 
         private static final String TAG = "RetrievePlacesRunnable";
@@ -86,6 +104,9 @@ public class PlaceApiClient {
                 mGooglePlaces.postValue(null);
             }
         }
+
+
+
 
         private Call<GooglePlacesResponse> getPlaces(String query, String language) {
             return ServiceGenerator.getPlaceApi().searchPlace(

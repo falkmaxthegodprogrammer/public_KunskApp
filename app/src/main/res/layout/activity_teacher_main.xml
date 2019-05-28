@@ -18,11 +18,14 @@ android:orientation="vertical">
     >
 
 
+
     <android.support.v7.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@drawable/common_google_signin_btn_icon_dark"/>
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app1:tabTextColor="@color/colorAccent"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"
+        app1:srcCompat="@mipmap/ic_launcher_foreground" />
 
 
 </android.support.design.widget.AppBarLayout>

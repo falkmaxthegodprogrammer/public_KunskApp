@@ -2,7 +2,10 @@ package pvt19grupp1.kunskapp.com.kunskapp;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -22,12 +25,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import java.util.Arrays;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnPlaceListListener;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.ViewPagerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
+import pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
 
@@ -43,6 +59,15 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout collapseAppBarLayout;
+    private BottomNavigationView bottomNavigationView;
+
+    private PlacesClient mPlacesClient;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private Location mLocation;
+
+    private QuizMapFragment quizMapFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +82,9 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
         collapseAppBarLayout = findViewById(R.id.collapse_appbar_layout);
         collapseAppBarLayout.setExpanded(true);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationViewListener());
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
@@ -88,17 +116,52 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             }
         });
 
+        quizMapFragment = new QuizMapFragment();
         appBarLayout = (AppBarLayout) findViewById(R.id.appbarid);
         fragmentViewPager = (ViewPager) findViewById(R.id.viewpager_id);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.AddFragment(new QuizMapFragment(), "Kart-vy");
+
+        adapter.AddFragment(quizMapFragment, "Kart-vy");
         adapter.AddFragment(new QuizListFragment(), "List-vy");
         adapter.AddFragment(new MyQuizPlacesFragment(), "Mina valda platser");
 
         fragmentViewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(fragmentViewPager);
 
-        initSearchView();
+        //initSearchView();
+
+
+        /* INIT GOOGLE PLACES
+
+         */
+
+        if(!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), ConstantKeys.API_GOOGLE_PLACES_KEY);
+        }
+
+        final AutocompleteSupportFragment autoCompleteSupportFragment =
+                (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        autoCompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.USER_RATINGS_TOTAL, Place.Field.VIEWPORT, Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME, Place.Field.TYPES));
+        autoCompleteSupportFragment.setCountry("se");
+
+        autoCompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                final LatLng latLng = place.getLatLng();
+                 // GooglePlaceModel(String address, int user_ratings_total, String ID, String name, String[] types)
+                //new GooglePlaceModel();
+               // System.out.println(place.getTypes().get(0).toString());
+                mPlacesListViewModel.addPlace(new GooglePlaceModel(place.getAddress(), place.getLatLng().latitude, place.getLatLng().longitude, place.getUserRatingsTotal(), place.getId(), place.getName(), place.getTypes().get(0).toString()));
+                quizMapFragment.zoomToLocation(latLng);
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+
+            }
+        });
+
 
         appBarLayoutBottom = (AppBarLayout) findViewById(R.id.appbarid2);
         //testRetroFitRequest();
@@ -115,6 +178,9 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     }
 
     private void initSearchView() {
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -128,6 +194,34 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             }
         });
     }
+
+
+    class BottomNavigationViewListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item)
+            {
+                Intent intent = null;
+                switch (item.getItemId())
+                {
+                    case R.id.action_home:
+                        intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.action_my_quizzes:
+                        intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.action_my_profile:
+                        intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+
+                return true;
+            }
+        }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,7 +242,8 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             searchPlaceApi("stockholm+school", "se");
             Toast.makeText(this, "Visar skolor", Toast.LENGTH_LONG).show();
         } else if(item.getItemId() == R.id.filters_nearby) {
-            System.out.println("Platser i närheten");
+            Toast.makeText(this, "Rensar GooglePlace-platser", Toast.LENGTH_LONG).show();
+
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,26 +1,41 @@
 package pvt19grupp1.kunskapp.com.kunskapp.viewmodels;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
-import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
+import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
+import pvt19grupp1.kunskapp.com.kunskapp.repositories.PlaceRepository;
+import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuizPlaceRepository;
 
 public class QuestionListViewModel extends ViewModel {
 
-    private MutableLiveData<List<GooglePlaceModel>> mGooglePlaces = new MutableLiveData<>();
+    /*private QuestionListViewModel mQuestionListViewModel;
 
     public QuestionListViewModel() {
-
+        mQuizPlaceRepository = QuizPlaceRepository.getInstance();
     }
 
-    public LiveData<List<Question>> getQuestions() {
-        return null;
+    public LiveData<List<QuizPlace>> getQuizPlaces() {
+        return mQuizPlaceRepository.getQuizPlaces();
     }
+
+    public void setmQuizPlaces(List<QuizPlace> quizPlaces) {
+        mQuizPlaceRepository.setmQuizPlaces(quizPlaces);
+    }
+
+    public void addQuizPlace(QuizPlace qp) {
+        mQuizPlaceRepository.addQuizPlace(qp);
+    }
+
+    public void clearQuizPlaces() {
+        List<QuizPlace> emptyList = new ArrayList<>();
+        mQuizPlaceRepository.setmQuizPlaces(emptyList);
+    }
+*/
 
 }

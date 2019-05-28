@@ -17,13 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnPlaceListListener;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
+import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
+import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuestionRepository;
+import pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.QuizPlaceViewModel;
@@ -38,7 +44,8 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
     private SearchView searchView;
     private Toolbar toolbar;
 
-
+    private Question question1;
+    private Question question2;
 
     @Nullable
     @Override
@@ -46,9 +53,7 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
         view = inflater.inflate(R.layout.quiz_list_fragment, container, false);
         recyclerView = view.findViewById(R.id.places_list);
         initRecyclerView();
-        //subscribeObservers();
         return view;
-
     }
 
     @Override
@@ -60,7 +65,6 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
                 List<QuizPlace> tempList = new ArrayList<>();
                 mQuizPlacesListViewModel.setmQuizPlaces(tempList);
             }
-
         subscribeObservers();
     }
 
@@ -102,7 +106,6 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
         intent.putExtra("place", placeRecyclerAdapter.getSelectedPlace(position));
         startActivity(intent);
     }
-
 
     @Override
     public void onCategoryClick(String category) {

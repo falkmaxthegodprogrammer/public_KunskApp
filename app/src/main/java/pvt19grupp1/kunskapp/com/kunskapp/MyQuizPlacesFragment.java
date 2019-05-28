@@ -1,5 +1,6 @@
 package pvt19grupp1.kunskapp.com.kunskapp;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +20,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +35,11 @@ import java.util.List;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnPlaceListListener;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.QuizPlaceRecyclerAdapter;
+import pvt19grupp1.kunskapp.com.kunskapp.models.Answer;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
+import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
+import pvt19grupp1.kunskapp.com.kunskapp.util.TabbedDialog;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.QuizPlaceViewModel;
@@ -40,18 +52,18 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
     private RecyclerView recyclerView;
     private ImageButton btnClearMyQuizPlaces;
     private ImageButton btnSaveMyQuizPlaces;
+    private Button btnInfoText;
+
+    private String instructionString = "";
     private TextView textViewInstructions;
-
-    private String instructionString = "Klicka på en plats för att välja/lägga till/redigera frågor." +
-                                       "\n\nHar du inte valt fråga läggs den mest populära frågan till. " +
-                                       "\n Spara quiz för att få tillgång till det senare.";
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.myquizplaces_fragment, container, false);
         recyclerView = view.findViewById(R.id.quizplaces_list);
+
+        textViewInstructions = view.findViewById(R.id.text_view_instruction);
 
         btnClearMyQuizPlaces = view.findViewById(R.id.btn_clear_myquizplaces);
         btnClearMyQuizPlaces.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +73,6 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
             }
         });
 
-        textViewInstructions = view.findViewById(R.id.text_view_instruction);
-
         btnSaveMyQuizPlaces = view.findViewById(R.id.btn_save_myquizplaces);
         btnSaveMyQuizPlaces.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +81,21 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
             }
         });
 
+        btnInfoText = (Button) view.findViewById(R.id.btn_infotext);
+        btnInfoText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(instructionString.length() >= 1) {
+                    instructionString = "";
+                    textViewInstructions.setText("");
+                    textViewInstructions.setVisibility(View.INVISIBLE);
+                } else {
+                    textViewInstructions.setVisibility(View.VISIBLE);
+                    setInstructionTextString();
 
-
+                }
+            }
+        });
 
         initRecyclerView();
         //subscribeObservers();
@@ -99,18 +122,31 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
             @Override
             public void onChanged(@Nullable List<QuizPlace> places) {
                 quizPlaceRecyclerAdapter.setmQuizPlaces(places);
-                textViewInstructions.setText("Du har för tillfället " + noPlacesSelected() + " plats(er) tillagda. \n" + instructionString);
+                setInstructionTextString();
+
             }
         });
     }
-    private int noPlacesSelected() {
+    private void setInstructionTextString() {
         int noPlaces;
         if(mQuizPlacesViewModel.getQuizPlaces().getValue() != null) {
             noPlaces = mQuizPlacesViewModel.getQuizPlaces().getValue().size();
+            instructionString = "Klicka på en plats för att välja/lägga till/redigera frågor." +
+            "\n\nHar du inte valt fråga läggs den mest populära frågan till. " +
+                    "\n Spara quiz för att få tillgång till det senare.";
+            textViewInstructions.setText("Du har för tillfället " + noPlaces + " plats(er) tillagda. \n" + instructionString);
+
+
         } else {
             noPlaces = 0;
+            instructionString = "Inga platser tillagda!";
+            textViewInstructions.setText(instructionString);
         }
-        return noPlaces;
+        if(mQuizPlacesViewModel.getQuizPlaces().getValue().size() == 0) {
+            instructionString = "Inga platser tillagda!";
+            textViewInstructions.setText(instructionString);
+
+        }
     }
 
     public void showConfirmClearPlacesDialog() {
@@ -167,12 +203,23 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
-    }
+}
+
 
 
     @Override
     public void onPlaceClick(int position) {
+       // showAddQuestionDialog(quizPlaceRecyclerAdapter.getSelectedPlace(position));
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
 
+            // Create and show the dialog.
+            TabbedDialog dialogFragment = new TabbedDialog(quizPlaceRecyclerAdapter.getSelectedPlace(position), quizPlaceRecyclerAdapter);
+            dialogFragment.show(ft,"dialog");
     }
 
     @Override
@@ -184,6 +231,56 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
     public void onButtonClick(int position) {
 
     }
+
+    /*  private void showAddQuestionDialog(final QuizPlace qPlace) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(R.layout.add_question_dialog);
+        builder.create();
+        final AlertDialog dialog = builder.show();
+
+        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radiobuttons);
+        Button btnCancel = (Button) dialog.findViewById(R.id.dialogBtn_cancel);
+        Button btnAddQuestion = (Button) dialog.findViewById(R.id.dialogBtn_addQuestion);
+
+        final EditText questionText = (EditText) dialog.findViewById(R.id.edit_text_question);
+
+        final RadioButton rb0 = (RadioButton) dialog.findViewById(R.id.radio0);
+        final RadioButton rb1 = (RadioButton) dialog.findViewById(R.id.radio0);
+        final RadioButton rb2 = (RadioButton) dialog.findViewById(R.id.radio0);
+        final RadioButton rb3 = (RadioButton) dialog.findViewById(R.id.radio0);
+
+        final EditText questionText1 = (EditText) dialog.findViewById(R.id.edit_text_question1);
+        final EditText questionText2 = (EditText) dialog.findViewById(R.id.edit_text_question2);
+        final EditText questionText3 = (EditText) dialog.findViewById(R.id.edit_text_question3);
+        final EditText questionText4 = (EditText) dialog.findViewById(R.id.edit_text_question4);
+
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        btnAddQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Question question = new Question(questionText.getText().toString(), qPlace.getGooglePlace().getId());
+
+                question.addAnswer(new Answer(questionText1.getText().toString(), rb0.isChecked()));
+                question.addAnswer(new Answer(questionText2.getText().toString(), rb1.isChecked()));
+                question.addAnswer(new Answer(questionText3.getText().toString(), rb2.isChecked()));
+                question.addAnswer(new Answer(questionText4.getText().toString(), rb3.isChecked()));
+
+                qPlace.addQuestion(question);
+                quizPlaceRecyclerAdapter.notifyDataSetChanged();
+                dialog.cancel();
+            }
+        });
+    } */
+
 
 
 }

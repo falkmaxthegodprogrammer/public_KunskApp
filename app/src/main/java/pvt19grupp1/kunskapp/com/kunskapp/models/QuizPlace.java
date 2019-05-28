@@ -2,13 +2,17 @@ package pvt19grupp1.kunskapp.com.kunskapp.models;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class QuizPlace {
 
     private GooglePlaceModel googlePlace;
     private String name;
     private double rating;
-    private Collection<Question> questions;
+    private List<Question> questions;
+    private double latitude;
+    private double longitude;
+
 
     public QuizPlace(GooglePlaceModel googlePlace) {
         this.googlePlace = googlePlace;
@@ -16,11 +20,21 @@ public class QuizPlace {
         this.rating = googlePlace.getRating();
         this.rating = rating;
         this.questions = new ArrayList<Question>();
+        this.latitude = googlePlace.getLat();
+        this.longitude = googlePlace.getLng();
     }
 
-    public QuizPlace() {
-
+    public QuizPlace(String name, double latitude, double longitude) {
+        this.googlePlace = new GooglePlaceModel(latitude, longitude, name);
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.questions = new ArrayList<Question>();
     }
+
+    public double getLatitude() { return latitude; }
+
+    public double getLongitude() { return longitude; }
 
     public void addQuestion(Question question) {
         questions.add(question);
@@ -34,11 +48,11 @@ public class QuizPlace {
         this.rating = rating;
     }
 
-    public Collection<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Collection<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
@@ -50,10 +64,16 @@ public class QuizPlace {
         return name;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if(o == this) return true;
-        return googlePlace.getId().equals(((QuizPlace) o).getGooglePlace().getId());
+        if(googlePlace.getId() != null) {
+            return googlePlace.getId().equals(((QuizPlace) o).getGooglePlace().getId());
+        } else {
+            return name.equals(((QuizPlace) o).getName());
+        }
     }
 
     @Override

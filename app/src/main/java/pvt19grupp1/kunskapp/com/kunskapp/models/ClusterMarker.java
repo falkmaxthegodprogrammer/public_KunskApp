@@ -5,64 +5,68 @@ import com.google.maps.android.clustering.ClusterItem;
 
 public class ClusterMarker implements ClusterItem {
 
-    private LatLng position;
-    private String title;
-    private String snippet;
-    private int iconPicture;
-    private GooglePlaceModel googlePlace;
+        private LatLng position; // required field
+        private String title; // required field
+        private String snippet; // required field
+        private int iconPicture;
 
-    public ClusterMarker(LatLng position, String title, String snippet, int iconPicture, GooglePlaceModel googlePlace) {
-        this.position = position;
-        this.title = title;
-        this.snippet = snippet;
-        this.iconPicture = iconPicture;
-        this.googlePlace = googlePlace;
+
+    private QuizPlace mQuizPlace;
+   //     private User user;
+
+        public ClusterMarker(LatLng position, String title, String snippet, int iconPicture, QuizPlace qp) {
+            this.position = position;
+            this.title = title;
+            this.snippet = snippet;
+            this.iconPicture = iconPicture;
+            this.mQuizPlace = qp;
+        }
+
+        public int getIconPicture() {
+            return iconPicture;
+        }
+
+        public void setIconPicture(int iconPicture) {
+            this.iconPicture = iconPicture;
+        }
+
+    public QuizPlace getmQuizPlace() {
+        return mQuizPlace;
     }
 
-    public ClusterMarker() {
-
+    public void setmQuizPlace(QuizPlace mQuizPlace) {
+        this.mQuizPlace = mQuizPlace;
     }
 
-    public int getIconPicture() {
-        return iconPicture;
-    }
+    /*     public User getUser() {
+   ///         return user;
+   //     }
 
-    public GooglePlaceModel getGooglePlace() {
-        return googlePlace;
-    }
+        public void setUser(User user) {
+   //         this.user = user;
+        }
+*/
+        public void setPosition(LatLng position) {
+            this.position = position;
+        }
 
-    public void setPosition(LatLng position) {
-        this.position = position;
-    }
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+        public void setSnippet(String snippet) {
+            this.snippet = snippet;
+        }
 
-    public void setSnippet(String snippet) {
-        this.snippet = snippet;
-    }
+        public LatLng getPosition() {
+            return position;
+        }
 
-    public void setIconPicture(int iconPicture) {
-        this.iconPicture = iconPicture;
-    }
+        public String getTitle() {
+            return title;
+        }
 
-    public void setGooglePlace(GooglePlaceModel googlePlace) {
-        this.googlePlace = googlePlace;
+        public String getSnippet() {
+            return snippet;
+        }
     }
-
-    @Override
-    public LatLng getPosition() {
-        return null;
-    }
-
-    @Override
-    public String getTitle() {
-        return null;
-    }
-
-    @Override
-    public String getSnippet() {
-        return null;
-    }
-}

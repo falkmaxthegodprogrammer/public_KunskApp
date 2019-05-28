@@ -1,65 +1,72 @@
 package pvt19grupp1.kunskapp.com.kunskapp.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class QuizSession {
+public class QuizSession implements Parcelable {
 
-    private List<User> participants;
-    private List<QuizPlace> quizLocations;
+    private String title;
+    private String quiz_session_id;
 
-    private String quizWalkName;
-    private int QUIZ_PIN;
 
-    private boolean isQuizActive;
-
-    public QuizSession(String name, int quizPin) {
-        this.quizWalkName = name;
-        this.QUIZ_PIN = quizPin;
-
-        participants = new ArrayList<User>();
-        quizLocations = new ArrayList<QuizPlace>();
+    public QuizSession(String title, String chatroom_id) {
+        this.title = title;
+        this.quiz_session_id = chatroom_id;
     }
 
-    public boolean isQuizActive() {
-        return isQuizActive;
+    public QuizSession() {
+
     }
 
-    public void setQuizActive(boolean quizActive) {
-        isQuizActive = quizActive;
+    protected QuizSession(Parcel in) {
+        title = in.readString();
+        quiz_session_id = in.readString();
     }
 
-    public List<User> getParticipants() {
-        return participants;
+    public static final Creator<QuizSession> CREATOR = new Creator<QuizSession>() {
+        @Override
+        public QuizSession createFromParcel(Parcel in) {
+            return new QuizSession(in);
+        }
+
+        @Override
+        public QuizSession[] newArray(int size) {
+            return new QuizSession[size];
+        }
+    };
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public List<QuizPlace> getQuizLocations() {
-        return quizLocations;
+    public String getChatroom_id() {
+        return quiz_session_id;
     }
 
-    public void setQuizLocations(List<QuizPlace> quizLocations) {
-        this.quizLocations = quizLocations;
+    public void setChatroom_id(String chatroom_id) {
+        this.quiz_session_id = chatroom_id;
     }
 
-    public String getQuizWalkName() {
-        return quizWalkName;
+    @Override
+    public String toString() {
+        return "Chatroom{" +
+                "title='" + title + '\'' +
+                ", chatroom_id='" + quiz_session_id + '\'' +
+                '}';
     }
 
-    public void setQuizWalkName(String quizWalkName) {
-        this.quizWalkName = quizWalkName;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public int getQUIZ_PIN() {
-        return QUIZ_PIN;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(quiz_session_id);
     }
-
-    public void setQUIZ_PIN(int QUIZ_PIN) {
-        this.QUIZ_PIN = QUIZ_PIN;
-    }
-
-
 }

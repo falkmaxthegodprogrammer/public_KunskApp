@@ -23,14 +23,12 @@ public class ClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker
     private final int markerWidth;
     private final int markerHeight;
 
+    public ClusterManagerRenderer(Context context, GoogleMap googleMap,
+                                    ClusterManager<ClusterMarker> clusterManager) {
 
+        super(context, googleMap, clusterManager);
 
-    public ClusterManagerRenderer(Context context, GoogleMap map, ClusterManager<ClusterMarker> clusterManager, IconGenerator iconGenerator, ImageView imageView, int markerWidth, int markerHeight) {
-        super(context, map, clusterManager);
-        this.iconGenerator = iconGenerator;
-        this.imageView = imageView;
-        this.markerWidth = markerWidth;
-        this.markerHeight = markerHeight;
+        // initialize cluster item icon generator
         iconGenerator = new IconGenerator(context.getApplicationContext());
         imageView = new ImageView(context.getApplicationContext());
         markerWidth = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
@@ -39,18 +37,25 @@ public class ClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker
         int padding = (int) context.getResources().getDimension(R.dimen.custom_marker_padding);
         imageView.setPadding(padding, padding, padding, padding);
         iconGenerator.setContentView(imageView);
-
     }
 
+    /**
+     * Rendering of the individual ClusterItems
+     * @param item
+     * @param markerOptions
+     */
     @Override
     protected void onBeforeClusterItemRendered(ClusterMarker item, MarkerOptions markerOptions) {
+
         imageView.setImageResource(item.getIconPicture());
         Bitmap icon = iconGenerator.makeIcon();
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(item.getTitle());
     }
 
+
     @Override
-    protected boolean shouldRenderAsCluster(Cluster<ClusterMarker> cluster) {
+    protected boolean shouldRenderAsCluster(Cluster cluster) {
         return false;
     }
 }
+

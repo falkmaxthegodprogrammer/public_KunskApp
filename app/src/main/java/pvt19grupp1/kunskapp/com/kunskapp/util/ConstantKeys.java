@@ -21,7 +21,7 @@ public class ConstantKeys {
 
     // GOOGLE DIRECTION API
 
-    public static final String API_GOOGLE_DIRECTIONS_KEY = "";
+    public static final String API_GOOGLE_DIRECTIONS_KEY = "AIzaSyBLRD_0Seh4awbkL3EeY8rY4PudnoAsaog";
 
 
 

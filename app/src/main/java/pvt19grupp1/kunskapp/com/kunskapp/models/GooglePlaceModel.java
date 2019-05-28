@@ -3,7 +3,12 @@ package pvt19grupp1.kunskapp.com.kunskapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.internal.impl.net.pablo.PlaceResult;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GooglePlaceModel implements Parcelable {
 
@@ -11,7 +16,6 @@ public class GooglePlaceModel implements Parcelable {
     private String icon;
     private String id;
     private String name;
-    private String place_id;
 
     private double rating;
     private int user_ratings_total;
@@ -20,23 +24,70 @@ public class GooglePlaceModel implements Parcelable {
     private String lat;
     private String lng;
 
+    private LatLng latLng;
+
     private Geometry geometry;
 
+    private List<Question> questions = new ArrayList<>();
 
-    public GooglePlaceModel(String formatted_adress, String icon, String id, String name, String place_id, double rating, int user_ratings_total, String[] types, String glat, String glng, Geometry geometry) {
+    public GooglePlaceModel(String formatted_adress, String icon, String id, String name, double rating, int user_ratings_total, String[] types, String glat, String glng, Geometry geometry) {
         this.formatted_adress = formatted_adress;
         this.icon = icon;
         this.id = id;
         this.name = name;
-        this.place_id = place_id;
         this.rating = rating;
         this.user_ratings_total = user_ratings_total;
         this.types = types;
         this.geometry = geometry;
     }
 
+    public GooglePlaceModel(LatLng latLng, String name) {
+        this.latLng = latLng;
+        this.name = name;
+        user_ratings_total = 0;
+        this.types = new String[3];
+    }
+
+    public GooglePlaceModel(double latitude, double longitude, String name) {
+        this.latLng = new LatLng(latitude, longitude);
+        this.name = name;
+        user_ratings_total = 0;
+        this.types = new String[3];
+    }
+
+    // Arrays.asList(Place.Field.ADDRESS, Place.Field.USER_RATINGS_TOTAL, Place.Field.VIEWPORT, Place.Field.LAT_LNG, Place.Field.ID, , Place.Field.NAME, Place.Field.TYPES));
+
+    public GooglePlaceModel(String address, double latitude, double longitude, int user_ratings_total, String ID, String name, String category) {
+        this.formatted_adress = address;
+        this.latLng = new LatLng(latitude, longitude);
+        this.user_ratings_total = user_ratings_total;
+        this.types = new String[3];
+        types[0] = category;
+        this.name = name;
+        this.id = ID;
+    }
+
+    public boolean isUserCreated() {
+        return id == null;
+    }
+
     public GooglePlaceModel() {
 
+    }
+
+    public String getCategory() {
+        if(types[0] == null)
+            return "USER_CREATED";
+        else
+            return types[0];
+    }
+
+    public void addQuestion(Question question) {
+          questions.add(question);
+    }
+
+    public List<Question> getQuestions() {
+            return questions;
     }
 
     public static final Creator<GooglePlaceModel> CREATOR = new Creator<GooglePlaceModel>() {
@@ -56,12 +107,10 @@ public class GooglePlaceModel implements Parcelable {
         this.icon = in.readString();
         this.id = in.readString();
         this.name = in.readString();
-        this.place_id = in.readString();
         this.rating = in.readDouble();
         this.user_ratings_total = in.readInt();
         this.lat = in.readString();
         this.lng = in.readString();
-
     }
 
     @Override
@@ -75,7 +124,7 @@ public class GooglePlaceModel implements Parcelable {
         dest.writeString(icon);
         dest.writeString(id);
         dest.writeString(name);
-        dest.writeString(place_id);
+        dest.writeString(id);
         dest.writeDouble(rating);
         dest.writeInt(user_ratings_total);
         dest.writeString(lat);
@@ -101,9 +150,6 @@ public class GooglePlaceModel implements Parcelable {
 
     public String[] getTypes() { return types; }
 
-    public String getPlace_id() {
-        return place_id;
-    }
 
     public Geometry getGeometry() {
         return geometry;
@@ -113,14 +159,22 @@ public class GooglePlaceModel implements Parcelable {
         return geometry == null;
     }
 
+
     public double getLat() {
        // return Double.valueOf(lat);
-        return geometry.getLocation().lat;
+        if(geometry != null) {
+            return geometry.location.lat;
+        } else {
+            return latLng.latitude;
+        }
     }
 
     public double getLng() {
-     //  return Double.valueOf(lng);
-        return geometry.getLocation().lng;
+         if(geometry != null) {
+            return geometry.location.lng;
+        } else {
+            return latLng.longitude;
+        }
     }
 
    // public String[] getLocation() {

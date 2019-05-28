@@ -28,5 +28,9 @@ public class PlaceListViewModel extends ViewModel {
         mPlaceRepository.searchPlaceApi(query, language);
     }
 
+    public void addPlace(GooglePlaceModel gpm) {
+        mPlaceRepository.addPlace(gpm);
+    }
+
 
 }
