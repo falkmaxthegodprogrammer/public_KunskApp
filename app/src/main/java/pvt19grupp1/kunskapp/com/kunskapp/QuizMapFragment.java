@@ -166,8 +166,8 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
                                 coordList.add(new LatLng(quizPlace.getLatitude(), quizPlace.getLongitude()));
                                 addCustomMapMarker(quizPlace);
 
-                        //        mMap.addMarker(new MarkerOptions().position(new LatLng(quizPlace.getGooglePlace().getLat(), quizPlace.getGooglePlace().getLng())).title(quizPlace.getGooglePlace().getName())
-                        //                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                               mMap.addMarker(new MarkerOptions().position(new LatLng(quizPlace.getGooglePlace().getLat(), quizPlace.getGooglePlace().getLng())).title(quizPlace.getGooglePlace().getName())
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
                         }
 

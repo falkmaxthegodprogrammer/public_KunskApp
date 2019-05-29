@@ -1,19 +1,9 @@
 package pvt19grupp1.kunskapp.com.kunskapp;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,24 +12,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnPlaceListListener;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnQuestionListListener;
-import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.QuestionListRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.Answer;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
-import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
-import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuestionRepository;
-import pvt19grupp1.kunskapp.com.kunskapp.util.ShowAddQuestionDialog;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 
 public class PlaceActivity extends BaseActivity implements OnQuestionListListener {

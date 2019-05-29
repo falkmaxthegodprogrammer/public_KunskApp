@@ -1,6 +1,5 @@
 package pvt19grupp1.kunskapp.com.kunskapp.util;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
@@ -8,9 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import pvt19grupp1.kunskapp.com.kunskapp.PlaceActivity;
 import pvt19grupp1.kunskapp.com.kunskapp.R;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.QuestionListRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.Answer;
@@ -22,7 +19,7 @@ public class ShowAddQuestionDialog {
     public ShowAddQuestionDialog(Context context, final GooglePlaceModel googlePlaceInstance, final QuestionListRecyclerAdapter mQuestionRecyclerAdapter) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setView(R.layout.add_question_dialog);
+            builder.setView(R.layout.add_question_dialog_tabbed);
             builder.create();
             final AlertDialog dialog = builder.show();
 

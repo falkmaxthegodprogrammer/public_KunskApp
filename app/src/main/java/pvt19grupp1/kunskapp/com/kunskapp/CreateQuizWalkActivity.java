@@ -1,7 +1,9 @@
 package pvt19grupp1.kunskapp.com.kunskapp;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -17,11 +19,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +35,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -43,6 +50,7 @@ import pvt19grupp1.kunskapp.com.kunskapp.adapters.OnPlaceListListener;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.ViewPagerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
+import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
@@ -207,9 +215,8 @@ public class CreateQuizWalkActivity extends BaseActivity  {
                         intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.action_my_quizzes:
-                        intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
-                        startActivity(intent);
+                    case R.id.action_help:
+                        showHelpDialog();
                         break;
                     case R.id.action_my_profile:
                         intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
@@ -221,7 +228,38 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             }
         }
 
+    private void showHelpDialog() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("HJÄLP!");
+        builder1.setCancelable(true);
 
+        final LinearLayout linearLayout = new LinearLayout(this);
+        final TextView helpText = new EditText(this);
+
+        helpText.setText("Hjälp!\n\n " +
+                         "1. Sök efter plats(er) i sökrutan.\n" +
+                         "2. Bla bla bla.\n" +
+                         "3. Lägg till platser till tipspromenad.. etc\netc\n");
+
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.addView(helpText);
+
+
+        builder1.setView(linearLayout);
+
+        builder1.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

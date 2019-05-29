@@ -6,12 +6,6 @@
     android:background="@color/colorPrimary">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:src="@mipmap/kunskapplogga3_round" />
-
 
         <TextView
             android:layout_width="match_parent"

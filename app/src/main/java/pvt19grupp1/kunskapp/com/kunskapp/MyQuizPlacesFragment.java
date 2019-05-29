@@ -235,7 +235,7 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
     /*  private void showAddQuestionDialog(final QuizPlace qPlace) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(R.layout.add_question_dialog);
+        builder.setView(R.layout.add_question_dialog_tabbed);
         builder.create();
         final AlertDialog dialog = builder.show();
 

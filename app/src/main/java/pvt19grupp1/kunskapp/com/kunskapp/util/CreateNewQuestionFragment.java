@@ -1,12 +1,9 @@
 package pvt19grupp1.kunskapp.com.kunskapp.util;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import pvt19grupp1.kunskapp.com.kunskapp.R;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.QuizPlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.Answer;
-import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 
@@ -44,7 +39,7 @@ public class CreateNewQuestionFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.add_question_dialog,container,false);
+        View v = inflater.inflate(R.layout.add_question_dialog_tabbed,container,false);
 
             RadioGroup rg = (RadioGroup) v.findViewById(R.id.radiobuttons);
             Button btnCancel = (Button) v.findViewById(R.id.dialogBtn_cancel);

@@ -10,10 +10,10 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_my_quizzes"
+        android:id="@+id/action_help"
         android:enabled="true"
-        android:icon="@android:drawable/ic_menu_gallery"
-        android:title="Mina quiz"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="Hjälp"
         app:showAsAction="ifRoom" />
 
     <item
