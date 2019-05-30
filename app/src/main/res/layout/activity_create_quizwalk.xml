@@ -34,6 +34,7 @@
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,17 +60,31 @@
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:layout_collapseMode="pin">
 
-
                     <fragment
                         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/autocomplete_fragment"></fragment>
 
+
+
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
+
         </android.support.design.widget.CoordinatorLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skapar nytt quiz. Längd: 1230 meter, Tid: 35 minuter."
+            android:textColor="@color/colorPrimary"
+            android:background="@color/colorAccent"
+            android:textSize="14dp"
+            android:padding="4dp"
+            android:gravity="center"
+            android:visibility="visible"
+            android:id="@+id/text_view_quizinfo"/>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -78,23 +93,31 @@
         android:layout_height="match_parent"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="90"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </android.support.v4.view.ViewPager>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+
             android:layout_alignParentBottom="true"
             app:menu="@menu/bottom_nav_menu"
             app:itemBackground="@color/colorAccent"
             app:itemIconTint="@android:color/white"
             app:itemTextColor="@android:color/white" />
-
+        </LinearLayout>
     </RelativeLayout>
     </android.support.v7.widget.LinearLayoutCompat>
 

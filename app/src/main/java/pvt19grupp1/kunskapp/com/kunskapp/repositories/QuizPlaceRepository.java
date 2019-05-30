@@ -5,10 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
-import pvt19grupp1.kunskapp.com.kunskapp.requests.PlaceApiClient;
 
 public class QuizPlaceRepository {
 
@@ -30,11 +27,10 @@ public class QuizPlaceRepository {
 
     public void addQuizPlace(QuizPlace qp) {
 
-        List<QuizPlace> tempList = quizPlaces.getValue();
+        List<QuizPlace> tempList = new ArrayList<>();
 
-        if(tempList == null) {
-            tempList = new ArrayList<>();
-            quizPlaces.setValue(tempList);
+        if(quizPlaces.getValue() != null) {
+            tempList.addAll(quizPlaces.getValue());
         }
 
         if(tempList != null) {

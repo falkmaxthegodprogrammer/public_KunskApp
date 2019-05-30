@@ -105,9 +105,6 @@ public class PlaceApiClient {
             }
         }
 
-
-
-
         private Call<GooglePlacesResponse> getPlaces(String query, String language) {
             return ServiceGenerator.getPlaceApi().searchPlace(
                     query,

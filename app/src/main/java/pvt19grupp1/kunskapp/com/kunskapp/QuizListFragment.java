@@ -47,6 +47,16 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
     private Question question1;
     private Question question2;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPlacesListViewModel = ViewModelProviders.of(getActivity()).get(PlaceListViewModel.class);
+        mQuizPlacesListViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
+        subscribeObservers();
+
+        // setRetainInstance(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,13 +69,6 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPlacesListViewModel = ViewModelProviders.of(getActivity()).get(PlaceListViewModel.class);
-        mQuizPlacesListViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
-            if(mQuizPlacesListViewModel.getQuizPlaces().getValue() == null) {
-                List<QuizPlace> tempList = new ArrayList<>();
-                mQuizPlacesListViewModel.setmQuizPlaces(tempList);
-            }
-        subscribeObservers();
     }
 
     private void initRecyclerView() {
@@ -114,7 +117,12 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
 
     @Override
     public void onButtonClick(int position) {
-        int initialSize = mQuizPlacesListViewModel.getQuizPlaces().getValue().size();
+        int initialSize;
+        if(mQuizPlacesListViewModel.getQuizPlaces().getValue() != null) {
+            initialSize = mQuizPlacesListViewModel.getQuizPlaces().getValue().size();
+        } else {
+            initialSize = 0;
+        }
         QuizPlace qp = new QuizPlace(placeRecyclerAdapter.getSelectedPlace(position));
         mQuizPlacesListViewModel.addQuizPlace(qp);
         int currentSize = mQuizPlacesListViewModel.getQuizPlaces().getValue().size();

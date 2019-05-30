@@ -22,4 +22,5 @@
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="Profil"
         app:showAsAction="ifRoom" />
+
 </menu>

@@ -57,6 +57,15 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
     private String instructionString = "";
     private TextView textViewInstructions;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mQuizPlacesViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
+        subscribeObservers();
+
+        // setRetainInstance(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,8 +114,6 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mQuizPlacesViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
-        subscribeObservers();
     }
 
     private void initRecyclerView() {
@@ -123,7 +130,6 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
             public void onChanged(@Nullable List<QuizPlace> places) {
                 quizPlaceRecyclerAdapter.setmQuizPlaces(places);
                 setInstructionTextString();
-
             }
         });
     }
@@ -135,7 +141,6 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
             "\n\nHar du inte valt fråga läggs den mest populära frågan till. " +
                     "\n Spara quiz för att få tillgång till det senare.";
             textViewInstructions.setText("Du har för tillfället " + noPlaces + " plats(er) tillagda. \n" + instructionString);
-
 
         } else {
             noPlaces = 0;
@@ -203,8 +208,7 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
-}
-
+    }
 
 
     @Override

@@ -42,9 +42,6 @@
                     android:layout_gravity="right"
                     android:paddingRight="10dp" />
 
-
-
-
                 </LinearLayout>
 
         <TextView

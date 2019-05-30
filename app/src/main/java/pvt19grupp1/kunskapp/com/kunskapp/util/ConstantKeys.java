@@ -23,7 +23,6 @@ public class ConstantKeys {
 
     public static final String API_GOOGLE_DIRECTIONS_KEY = "AIzaSyBLRD_0Seh4awbkL3EeY8rY4PudnoAsaog";
 
-
-
-
+    //MAP_VIEW_BUNDLE_KEY
+    public static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 }
