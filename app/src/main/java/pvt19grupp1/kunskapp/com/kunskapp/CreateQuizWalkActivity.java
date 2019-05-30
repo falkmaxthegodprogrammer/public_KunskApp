@@ -118,7 +118,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationViewListener());
 
         textViewQuizInfo = findViewById(R.id.text_view_quizinfo);
-        textViewQuizInfo.setText("Antal platser: 0" + " Sträcka: 0" + "meter. Uppskattad tid: 0" + " minuter.");
+        textViewQuizInfo.setText("Inga tillagda platser!");
         textViewQuizInfo.setVisibility(View.INVISIBLE);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
@@ -240,7 +240,6 @@ public class CreateQuizWalkActivity extends BaseActivity  {
                         startActivity(intent);
                         break;
                 }
-
                 return true;
             }
         }
@@ -331,7 +330,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
     public void updateQuizInfoText(int noPlaces, int metersLength, int evaluedTime) {
         textViewQuizInfo.setVisibility(View.VISIBLE);
-        textViewQuizInfo.setText("Platser: " + noPlaces + "  Sträcka: " + metersLength + " meter.  Uppskattad tid: " + evaluedTime + " minuter.");
+        textViewQuizInfo.setText("Platser: " + noPlaces + "  Sträcka: " + metersLength + " m  Uppskattad tid: " + evaluedTime + " minuter");
     }
 
     private WindowManager.LayoutParams getActionBarLayoutParams() {

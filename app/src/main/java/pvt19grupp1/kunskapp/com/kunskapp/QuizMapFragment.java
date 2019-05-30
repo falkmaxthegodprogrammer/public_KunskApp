@@ -80,7 +80,12 @@ import pvt19grupp1.kunskapp.com.kunskapp.util.DirectionsJSONParser;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.QuizPlaceViewModel;
 
-public class QuizMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnPolylineClickListener {
+public class QuizMapFragment extends Fragment implements
+                        OnMapReadyCallback,
+                        GoogleMap.OnMarkerClickListener,
+                        GoogleMap.OnPolylineClickListener,
+                        GoogleMap.OnInfoWindowClickListener
+{
 
     private static final String TAG = "QuizMapFragment";
     View view;
@@ -133,8 +138,6 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
         mPlacesListViewModel = ViewModelProviders.of(getActivity()).get(PlaceListViewModel.class);
         mQuizPlacesViewModel = ViewModelProviders.of(getActivity()).get(QuizPlaceViewModel.class);
         subscribeObservers();
-
-        //  setRetainInstance(true);
     }
 
     @Nullable
@@ -312,6 +315,8 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
         });
 
         mMap.setOnMarkerClickListener(this);
+
+        mMap.setOnInfoWindowClickListener(this);
     }
 
     public void searchPlaceApi(String query, String language) {
@@ -354,7 +359,7 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
 
-                String snippet = quizPlace.getName();
+                String snippet = "Klicka på rutan för att lägga till\n platsen till din tipspromenad.";
                 String title = quizPlace.getName();
                 int icon = R.mipmap.kunskapplogga3_round;
 
@@ -428,6 +433,32 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
         return data;
     }
 
+    @Override
+    public void onInfoWindowClick(final Marker marker) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        marker.setTitle(marker.getTitle());
+        marker.setSnippet("\n" + marker.getTitle() + " - lägg till i Quiz?");
+        builder.setMessage(marker.getSnippet())
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        marker.setSnippet("Ändrar text.. " + marker.getTitle());
+
+                        QuizPlace qp = new QuizPlace(marker.getTitle(), marker.getPosition().latitude, marker.getPosition().longitude);
+                        mQuizPlacesViewModel.addQuizPlace(qp);
+                        Toast.makeText(getActivity(), " Lade till + " + qp.getName() + " till tipspromenaden!", Toast.LENGTH_LONG);
+                        dialog.dismiss();
+                        marker.remove();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
         @Override
@@ -502,7 +533,6 @@ public class QuizMapFragment extends Fragment implements OnMapReadyCallback, Goo
             mMap.addPolyline(lineOptions);
         }
     }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

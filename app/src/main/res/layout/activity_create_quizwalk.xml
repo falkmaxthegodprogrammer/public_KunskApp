@@ -66,8 +66,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/autocomplete_fragment"></fragment>
 
-
-
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
@@ -75,16 +73,18 @@
         </android.support.design.widget.CoordinatorLayout>
 
         <TextView
+            android:id="@+id/text_view_quizinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:padding="4dp"
             android:text="Skapar nytt quiz. Längd: 1230 meter, Tid: 35 minuter."
             android:textColor="@color/colorPrimary"
-            android:background="@color/colorAccent"
-            android:textSize="14dp"
-            android:padding="4dp"
-            android:gravity="center"
-            android:visibility="visible"
-            android:id="@+id/text_view_quizinfo"/>
+            android:textSize="14sp"
+            android:typeface="normal"
+            android:visibility="visible" />
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
