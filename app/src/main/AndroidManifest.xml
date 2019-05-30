@@ -67,6 +67,8 @@
         <activity android:name=".WelcomeScreenActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".FirestoreTestActivity" />
+        <activity android:name=".MyQuizWalksActivity" />
+
 
 
     </application>

@@ -20,7 +20,6 @@ public class Question {
         this.googlePlaceId = googlePlaceId;
         this.answerID = UUID.randomUUID().toString();
         answers = new ArrayList<Answer>();
-
     }
 
     public String getQuestionText() {

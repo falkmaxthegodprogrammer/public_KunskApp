@@ -64,9 +64,11 @@ import pvt19grupp1.kunskapp.com.kunskapp.adapters.PlaceRecyclerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.adapters.ViewPagerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
+import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
 import pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
+import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.QuizPlaceViewModel;
 
 public class CreateQuizWalkActivity extends BaseActivity  {
 
@@ -78,6 +80,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
     private ViewPager fragmentViewPager;
     private PlaceListViewModel mPlacesListViewModel;
+    private QuizPlaceViewModel mQuizPlacesViewModel;
     private SearchView searchView;
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -107,6 +110,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         setContentView(view);
 
         mPlacesListViewModel = ViewModelProviders.of(this).get(PlaceListViewModel.class);
+        mQuizPlacesViewModel = ViewModelProviders.of(this).get(QuizPlaceViewModel.class);
 
         tabLayout = (TabLayout) findViewById(R.id.tablayoutid);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -137,7 +141,6 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
                     collapseAppBarLayout.setLayoutParams(params);
                     collapseAppBarLayout.setExpanded(false, true);
-                    textViewQuizInfo.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -219,6 +222,10 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     public void searchPlaceApi(String query, String language) {
         mPlacesListViewModel.searchPlaceApi(query, language);
 
+    }
+
+    public void updateQuizInfoTextDefaultMsg() {
+        textViewQuizInfo.setText("Inga platser tillagda!");
     }
 
     class BottomNavigationViewListener implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -353,6 +360,15 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         params.x = 0;
         params.y = statusBarHeight;
         return params;
+    }
+
+    public void loadQuizWalk(QuizWalk qw) {
+        mQuizPlacesViewModel.clearQuizPlaces();
+        mQuizPlacesViewModel.setmQuizPlaces(qw.getQuizPlaces());
+    }
+
+    public QuizMapFragment getQuizMapFragment() {
+        return quizMapFragment;
     }
 
 }

@@ -22,6 +22,8 @@ public class QuizPlace {
         this.questions = new ArrayList<Question>();
         this.latitude = googlePlace.getLat();
         this.longitude = googlePlace.getLng();
+        this.questions = new ArrayList<Question>();
+
     }
 
     public QuizPlace(String name, double latitude, double longitude) {

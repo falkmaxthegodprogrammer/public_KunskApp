@@ -114,7 +114,6 @@ public class QuizMapFragment extends Fragment implements
     private ArrayList<LatLng> markerPoints = new ArrayList<>();
     private List<LatLng> totalLatLngPoints = new ArrayList<>();
 
-
     private double totalDistance;
 
     public QuizMapFragment() {
@@ -198,19 +197,22 @@ public class QuizMapFragment extends Fragment implements
                           userCreatedMarkers.add(marker);
                       }
                   }
-                  System.out.println("AM I BEING CALLED TWICE?? --- PLACE VIEWMODEL...");
             }
         });
         mQuizPlacesViewModel.getQuizPlaces().observe(getActivity(), new Observer<List<QuizPlace>>() {
             @Override
             public void onChanged(@Nullable List<QuizPlace> quizPlaces) {
 
+                if(quizPlaces.size() == 0) {
+                    mMap.clear();
+                    clearLocalDataStructures();
+                    ((CreateQuizWalkActivity) getActivity()).updateQuizInfoTextDefaultMsg();
+                }
+
                 for (int i = 0; i < quizPlaces.size(); i++) {
                     QuizPlace quizPlace = quizPlaces.get(i);
                     addCustomMapMarker(quizPlace);
-
-                    LatLng toBeAdded = new LatLng(quizPlace.getLatitude(), quizPlace.getLongitude());
-                    markerPoints.add(toBeAdded);
+                    markerPoints.add(new LatLng(quizPlace.getLatitude(), quizPlace.getLongitude()));
                 }
 
                 if(markerPoints.size() >= 2) {
@@ -338,10 +340,6 @@ public class QuizMapFragment extends Fragment implements
     public void zoomToLocation(LatLng latLng) {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18.0f));
 
-    }
-
-    public void clearMarkerOptions() {
-        markerPoints.clear();
     }
 
     private void addCustomMapMarker(QuizPlace quizPlace){
@@ -519,8 +517,6 @@ public class QuizMapFragment extends Fragment implements
                 }
             }
 
-           // coordList.clear();
-          //  coordList.addAll(points);
             lineOptions.addAll(points);
             lineOptions.clickable(true);
             lineOptions.width(12);
@@ -587,6 +583,26 @@ public class QuizMapFragment extends Fragment implements
         mMapView.onPause();
         super.onPause();
     }
+
+    public List<LatLng> getTotalLatLngPoints() {
+        return totalLatLngPoints;
+    }
+
+    public double getTotalDistance() {
+        return totalDistance;
+    }
+
+    public void clearLocalDataStructures() {
+        totalDistance = 0;
+        totalLatLngPoints.clear();
+        markerPoints.clear();
+        clearClusterMarkers();
+    }
+
+    public void clearMap() {
+//        mMap.clear();
+    }
+
 
 
 
