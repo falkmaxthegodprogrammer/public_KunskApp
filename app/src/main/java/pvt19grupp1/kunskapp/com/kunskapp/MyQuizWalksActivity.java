@@ -7,23 +7,27 @@ import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
+import pvt19grupp1.kunskapp.com.kunskapp.models.User;
 import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuizWalkRepositoryTemp;
 
 public class MyQuizWalksActivity extends BaseActivity {
 
     private TextView txtViewQuizWalkName;
+    private User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_quizwalks);
 
+        user = ((UserClient)getApplicationContext()).getUser();
+
         txtViewQuizWalkName = findViewById(R.id.text_view_quiz_walk_name);
 
         QuizWalk quizWalk = null;
         String quizWalkName = " ";
-        if(QuizWalkRepositoryTemp.globalTempAllQuizWalks.get(0) != null) {
-            quizWalk = QuizWalkRepositoryTemp.globalTempAllQuizWalks.get(0);
+        if(user.getMyQuizzes() != null) {
+            quizWalk = user.getMyQuizzes().get(0);
             List<QuizPlace> quizPlaces = quizWalk.getQuizPlaces();
 
             System.out.println("---------- TIPSPROMENADENS NAMN -------------\n");
@@ -41,10 +45,7 @@ public class MyQuizWalksActivity extends BaseActivity {
                                     "Antal frågor " + qp.getQuestions().size() + "\n" +
                                     "Longitude: " + qp.getLongitude() + "\n" +
                                     "Latitude: " + qp.getLatitude() + "\n"
-
                     );
-
-
                 }
             }
         } // for(int i)

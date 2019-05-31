@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import pvt19grupp1.kunskapp.com.kunskapp.models.User;
+
 public class TeacherMainActivity extends BaseActivity {
 
     private Button btnStartQuiz;
@@ -15,11 +17,18 @@ public class TeacherMainActivity extends BaseActivity {
     private Button btnSeeResults;
     private Button btnSettings;
 
+    private User masterUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_main);
+        masterUser = ((UserClient)getApplicationContext()).getUser();
+
+        if(masterUser == null) {
+            masterUser = new User(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        }
 
         btnStartQuiz = (Button) findViewById(R.id.btn_start_quiz);
         btnPreviousQuizzes = (Button) findViewById(R.id.btn_my_quizwalks);

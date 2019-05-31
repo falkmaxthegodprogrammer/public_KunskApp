@@ -40,6 +40,7 @@ import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
+import pvt19grupp1.kunskapp.com.kunskapp.models.User;
 import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuizWalkRepositoryTemp;
 import pvt19grupp1.kunskapp.com.kunskapp.util.TabbedDialog;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
@@ -130,14 +131,23 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
     }
 
     private void subscribeObservers() {
-        mQuizPlacesViewModel.getQuizPlaces().observe(getActivity(), new Observer<List<QuizPlace>>() {
-            @Override
-            public void onChanged(@Nullable List<QuizPlace> places) {
-                quizPlaceRecyclerAdapter.setmQuizPlaces(places);
-                setInstructionTextString();
-            }
-        });
-    }
+            mQuizPlacesViewModel.getQuizPlaces().observe(getActivity(), new Observer<List<QuizPlace>>() {
+                @Override
+                public void onChanged(@Nullable List<QuizPlace> places) {
+                    if(places.size() == 0) return;
+                    if(places.size() != 0) {
+                        try{
+                            quizPlaceRecyclerAdapter.setmQuizPlaces(places);
+                            setInstructionTextString();
+                        } catch(NullPointerException e) {
+
+                        }
+
+                    }
+                }
+            });
+        }
+
     private void setInstructionTextString() {
         int noPlaces;
         if(mQuizPlacesViewModel.getQuizPlaces().getValue() != null) {
@@ -168,9 +178,10 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
                 "Ja",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        ((CreateQuizWalkActivity)(getActivity())).getmPlacesListViewModel().clearGooglePlaces();
                         mQuizPlacesViewModel.clearQuizPlaces();
+                        quizPlaceRecyclerAdapter.setmQuizPlaces(new ArrayList<QuizPlace>());
                         mQuizMapFragmentReference.clearLocalDataStructures();
-//                        mQuizMapFragmentReference.clearMap();
                         Toast.makeText(getActivity(), "Alla platser rensade.", Toast.LENGTH_LONG).show();
                         dialog.cancel();
                     }
@@ -206,7 +217,9 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
                         qw.setLatLngPoints(mQuizMapFragmentReference.getTotalLatLngPoints());
                         qw.setTotaldistance(mQuizMapFragmentReference.getTotalDistance());
 
-                        QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw);
+                        User user = ((CreateQuizWalkActivity)(getActivity())).getMasterUser();
+                        user.addQuizWalk(qw);
+
                         Toast.makeText(getActivity(), "Tipspromenaden " + qw.getName() + " skapad!", Toast.LENGTH_LONG).show();
 
                         dialog.cancel();

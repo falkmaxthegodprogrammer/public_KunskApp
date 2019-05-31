@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
@@ -30,6 +31,10 @@ public class PlaceListViewModel extends ViewModel {
 
     public void addPlace(GooglePlaceModel gpm) {
         mPlaceRepository.addPlace(gpm);
+    }
+
+    public void clearGooglePlaces() {
+        mPlaceRepository.clearGooglePlaces();
     }
 
 

@@ -20,6 +20,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import pvt19grupp1.kunskapp.com.kunskapp.models.User;
+
 public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
@@ -39,7 +41,6 @@ public class MainActivity extends BaseActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
         btnActivityList = findViewById(R.id.btn_activity_list);
         btnMapActivity = findViewById(R.id.btn_activity_map);
         btnLoginActivity = findViewById(R.id.button2);
@@ -55,9 +56,11 @@ public class MainActivity extends BaseActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null) {
+                    User masterUser = new User(user.getUid());
+                    ((UserClient)(getApplicationContext())).setUser(masterUser);
                     startActivity(teacherMainActivityIntent);
                 } else {
-                    startActivity(welcomeScreenIntent);
+                      startActivity(welcomeScreenIntent);
                 }
             }
         };

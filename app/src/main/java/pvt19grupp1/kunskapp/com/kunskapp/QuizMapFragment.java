@@ -85,7 +85,7 @@ public class QuizMapFragment extends Fragment implements
                         GoogleMap.OnMarkerClickListener,
                         GoogleMap.OnPolylineClickListener,
                         GoogleMap.OnInfoWindowClickListener
-{
+    {
 
     private static final String TAG = "QuizMapFragment";
     View view;
@@ -175,43 +175,65 @@ public class QuizMapFragment extends Fragment implements
         }
     }
 
+
+    private void reLoadQuizPlacesViewModel() {
+        List<GooglePlaceModel> listToLoad = new ArrayList<>();
+        listToLoad.addAll(mPlacesListViewModel.getGooglePlaces().getValue());
+        mPlacesListViewModel.clearGooglePlaces();
+
+        for(GooglePlaceModel gpm : listToLoad) {
+            mPlacesListViewModel.addPlace(gpm);
+        }
+    }
+
     private void subscribeObservers() {
         mPlacesListViewModel.getGooglePlaces().observe(getActivity(), new Observer<List<GooglePlaceModel>>() {
             @Override
             public void onChanged (@Nullable List<GooglePlaceModel> places) {
 
-                  if(!googlePlaceAPIMarkers.isEmpty()) {
-                      clearGoogleAPIMarkers();
-                  }
+                if (!googlePlaceAPIMarkers.isEmpty()) {
+                    clearGoogleAPIMarkers();
+                }
 
-                  for(GooglePlaceModel place : places) {
-                      if(!place.isUserCreated()) {
-                          MarkerOptions m = new MarkerOptions().position(new LatLng(place.getLat(), place.getLng())).title(place.getName());
-                          Marker marker = mMap.addMarker(m);
-                          googlePlaceAPIMarkers.add(marker);
-                      } else if(place.isUserCreated()) {
-                          MarkerOptions m = new MarkerOptions().position(new LatLng(place.getLat(), place.getLng())).title(place.getName())
-                                  .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-                          Marker marker = mMap.addMarker(m);
-                          userCreatedGooglePlaces.add(place);
-                          userCreatedMarkers.add(marker);
-                      }
-                  }
+                if (places != null && places.size() > 0) {
+
+                    for (GooglePlaceModel place : places) {
+                        if (!place.isUserCreated()) {
+                            MarkerOptions m = new MarkerOptions().position(new LatLng(place.getLat(), place.getLng())).title(place.getName() + "\n - TRYCK PÅ PLATSEN FÖR ATT LÄGGA TILL MIG\n I TIPSPROMENAD!");
+                            Marker marker = mMap.addMarker(m);
+                            googlePlaceAPIMarkers.add(marker);
+                        } else if (place.isUserCreated()) {
+                            MarkerOptions m = new MarkerOptions().position(new LatLng(place.getLat(), place.getLng())).title(place.getName() + "\n - TRYCK PÅ PLATSEN FÖR ATT LÄGGA TILL MIG\n I TIPSPROMENAD!")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                            Marker marker = mMap.addMarker(m);
+                            userCreatedGooglePlaces.add(place);
+                            userCreatedMarkers.add(marker);
+                        }
+                    }
+                }
             }
         });
+
         mQuizPlacesViewModel.getQuizPlaces().observe(getActivity(), new Observer<List<QuizPlace>>() {
             @Override
             public void onChanged(@Nullable List<QuizPlace> quizPlaces) {
 
+                System.out.println(quizPlaces.size() + " --------- QUIZPLACES SIZE!!!!!");
+
                 if(quizPlaces.size() == 0) {
-                    mMap.clear();
+                    if(mMap != null) {
+                        mMap.clear();
+                    }
                     clearLocalDataStructures();
                     ((CreateQuizWalkActivity) getActivity()).updateQuizInfoTextDefaultMsg();
+                    return;
                 }
 
                 for (int i = 0; i < quizPlaces.size(); i++) {
                     QuizPlace quizPlace = quizPlaces.get(i);
-                    addCustomMapMarker(quizPlace);
+                    if(quizPlace != null) {
+                        addCustomMapMarker(quizPlace);
+                    }
                     markerPoints.add(new LatLng(quizPlace.getLatitude(), quizPlace.getLongitude()));
                 }
 
@@ -232,7 +254,7 @@ public class QuizMapFragment extends Fragment implements
                         ((CreateQuizWalkActivity) getActivity()).updateQuizInfoText(mQuizPlacesViewModel.getQuizPlaces().getValue().size(), (int) totalDistance, (int) totalDistance / 120);
                     }
                 }
-                markerPoints.clear();
+               //
             }
         });
     }
@@ -348,6 +370,7 @@ public class QuizMapFragment extends Fragment implements
             if(mClusterManager == null){
                 mClusterManager = new ClusterManager<ClusterMarker>(getActivity().getApplicationContext(), mMap);
             }
+
             if(mClusterManagerRenderer == null){
                 mClusterManagerRenderer = new ClusterManagerRenderer(
                         getActivity(),
@@ -357,8 +380,9 @@ public class QuizMapFragment extends Fragment implements
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
 
-                String snippet = "Klicka på rutan för att lägga till\n platsen till din tipspromenad.";
-                String title = quizPlace.getName();
+                String snippet = "";
+                String title = "" + quizPlace.getName() + "\nKlicka på rutan för att lägga till platsen till din tipspromenad.";
+
                 int icon = R.mipmap.kunskapplogga3_round;
 
                     ClusterMarker newClusterMarker = new ClusterMarker(
@@ -371,17 +395,41 @@ public class QuizMapFragment extends Fragment implements
                     mClusterManager.addItem(newClusterMarker);
                     mClusterMarkers.add(newClusterMarker);
             }
-            mClusterManager.cluster();
+
+        try{
+                mClusterManager.cluster();
+            } catch(NullPointerException e) {
+
+        }
 
        //     setCameraView();
+    }
+
+    public void reDrawSavedMapState(List<QuizPlace> quizPlaceList) {
+
+        for(QuizPlace qp : quizPlaceList) {
+            addCustomMapMarker(qp);
         }
+
+        PolylineOptions lineOptions = new PolylineOptions();
+
+      /*   lineOptions.addAll(totalLatLngPoints);
+        lineOptions.clickable(true);
+        lineOptions.width(12);
+//        lineOptions.color(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+        totalDistance += SphericalUtil.computeLength(totalLatLngPoints);
+
+        // Drawing polyline in the Google Map for the entire route
+        mMap.addPolyline(lineOptions); */
+
+    }
 
     @Override
     public void onPolylineClick(Polyline polyline) {
         polyline.setColor(0xE16E79FF);
         polyline.setZIndex(1);
     }
-
 
     private String getDirectionsUrl(LatLng origin, LatLng dest) {
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
@@ -560,7 +608,6 @@ public class QuizMapFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-
     }
 
     @Override

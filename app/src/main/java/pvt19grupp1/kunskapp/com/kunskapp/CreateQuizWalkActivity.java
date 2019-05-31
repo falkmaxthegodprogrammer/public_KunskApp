@@ -56,6 +56,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.api.LogDescriptor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,6 +66,7 @@ import pvt19grupp1.kunskapp.com.kunskapp.adapters.ViewPagerAdapter;
 import pvt19grupp1.kunskapp.com.kunskapp.models.GooglePlaceModel;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
+import pvt19grupp1.kunskapp.com.kunskapp.models.User;
 import pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
@@ -80,6 +82,11 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
     private ViewPager fragmentViewPager;
     private PlaceListViewModel mPlacesListViewModel;
+
+    public PlaceListViewModel getmPlacesListViewModel() {
+        return mPlacesListViewModel;
+    }
+
     private QuizPlaceViewModel mQuizPlacesViewModel;
     private SearchView searchView;
     private Toolbar toolbar;
@@ -97,6 +104,8 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
     private QuizMapFragment quizMapFragment;
 
+    private User masterUser;
+
     private static final int[] ACTION_BAR_SIZE = new int[] {
             android.R.attr.actionBarSize
     };
@@ -104,6 +113,8 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        masterUser = ((UserClient)(getApplicationContext())).getUser();
 
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_create_quizwalk, null);
@@ -188,6 +199,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 final LatLng latLng = place.getLatLng();
+                mPlacesListViewModel.clearGooglePlaces();
                 mPlacesListViewModel.addPlace(new GooglePlaceModel(place.getAddress(), place.getLatLng().latitude, place.getLatLng().longitude, place.getUserRatingsTotal(), place.getId(), place.getName(), place.getTypes().get(0).toString()));
                 quizMapFragment.zoomToLocation(latLng);
             }
@@ -286,21 +298,22 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
         if(item.getItemId() == R.id.filters_pointsofinterest) {
             searchPlaceApi("stockholm+points+of+interest", "se");
-            Toast.makeText(this, "Visar intressanta platser", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Visar intressanta platser", Toast.LENGTH_SHORT).show();
         } else if(item.getItemId() == R.id.filters_artgallery) {
             searchPlaceApi("stockholm+art_gallery", "se");
-            Toast.makeText(this, "Visar museum och gallerier", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Visar museum och gallerier", Toast.LENGTH_SHORT).show();
         } else if(item.getItemId() == R.id.filters_churches) {
             searchPlaceApi("stockholm+place_of_worship", "se");
-            Toast.makeText(this, "Visar kyrkor", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Visar kyrkor", Toast.LENGTH_SHORT).show();
         } else if(item.getItemId() == R.id.filters_naturalfeature) {
             searchPlaceApi("stockholm+natural_feature", "se");
-            Toast.makeText(this, "Visar natur-platser", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Visar natur-platser", Toast.LENGTH_SHORT).show();
         } else if(item.getItemId() == R.id.filters_schools) {
             searchPlaceApi("stockholm+school", "se");
-            Toast.makeText(this, "Visar skolor", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Visar skolor", Toast.LENGTH_SHORT).show();
         } else if(item.getItemId() == R.id.filters_nearby) {
-            Toast.makeText(this, "Rensar GooglePlace-platser", Toast.LENGTH_LONG).show();
+            mPlacesListViewModel.clearGooglePlaces();
+            Toast.makeText(this, "Rensar GooglePlace-platser", Toast.LENGTH_SHORT).show();
 
         }
         return super.onOptionsItemSelected(item);
@@ -371,4 +384,35 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         return quizMapFragment;
     }
 
-}
+    public User getMasterUser() { return masterUser; }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(masterUser == null) {
+            masterUser = ((UserClient)(getApplicationContext())).getUser();
+        }
+
+
+        mPlacesListViewModel.clearGooglePlaces();
+        mQuizPlacesViewModel.clearQuizPlaces();
+        quizMapFragment.clearLocalDataStructures();
+
+        /* List<QuizPlace> tempList = new ArrayList<>();
+        if(mQuizPlacesViewModel.getQuizPlaces().getValue() != null && mQuizPlacesViewModel.getQuizPlaces().getValue().size() > 0) {
+            Log.d(TAG, "onResume: ATTEMPTING TO RE-DRAW SAVED MAP STATE......");
+            quizMapFragment.reDrawSavedMapState(mQuizPlacesViewModel.getQuizPlaces().getValue());
+        } */
+
+
+      /*  for(QuizPlace qp : tempList) {
+            mQuizPlacesViewModel.addQuizPlace(qp);
+        } */
+
+        }
+
+    }
+
+
+

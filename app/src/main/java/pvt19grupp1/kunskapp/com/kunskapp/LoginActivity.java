@@ -85,10 +85,11 @@ public class LoginActivity extends BaseActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
                 mProgressBar.setEnabled(true);
+                User userMaster = new User(user.getUid());
+                ((UserClient)(getApplicationContext())).setUser(userMaster);
                 Intent teacherIntent = new Intent(this, TeacherMainActivity.class);
                 startActivity(teacherIntent);
-                User userMaster = new User(user.getUid());
-            } else {
+                          } else {
                 Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
         }

@@ -71,6 +71,11 @@ public class PlaceApiClient {
         mGooglePlaces.setValue(tempList);
     }
 
+    public void clearGooglePlaces() {
+        List<GooglePlaceModel> emptyList = new ArrayList<>();
+        mGooglePlaces.setValue(emptyList);
+    }
+
     private class RetrievePlacesRunnable implements Runnable {
 
         private static final String TAG = "RetrievePlacesRunnable";

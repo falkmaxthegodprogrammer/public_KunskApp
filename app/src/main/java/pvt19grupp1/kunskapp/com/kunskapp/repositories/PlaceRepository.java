@@ -38,5 +38,9 @@ public class PlaceRepository {
         mPlaceApiClient.addPlace(gpm);
     }
 
+    public void clearGooglePlaces() {
+        mPlaceApiClient.clearGooglePlaces();
     }
+
+}
 
