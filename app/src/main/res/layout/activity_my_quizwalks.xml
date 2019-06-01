@@ -1,142 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app1="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:background="@color/colorAccent"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="QuizNamn"
-        android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
-        android:padding="6dp"
-        android:typeface="normal"
-        />
-
-
-
-    <TextView
-        android:id="@+id/text_view_quiz_walk_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:text="QuizNamn"
-        android:textColor="@color/colorAccent"
-        android:textSize="26sp"
-        android:paddingTop="24dp"
-        android:paddingBottom="12dp"
-        android:typeface="normal"
-        android:visibility="visible" />
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        app1:tabMode="fixed"
-        android:id="@+id/tablayout_quizwalks_id"
-        android:background="@color/colorPrimary"
-        app1:tabTextColor="@color/colorAccent"
-        app1:tabSelectedTextColor="@color/colorAccentLighter"
-        />
-    <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/colorPrimary">
-
-    </android.support.v7.widget.LinearLayoutCompat>
-
-
-
-
-
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/colorPrimary">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager_myquizwalk_id"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="90"
-                android:background="#DF8B5D"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
+                android:layout_height="match_parent"
+                xmlns:app1="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical">
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/bottom_navigation"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btn_delete_quizwalk"
-                    android:background="@color/colorPrimary"
-                    android:src="@android:drawable/ic_menu_delete"
+                    android:fontFamily="sans-serif-black"
+                    android:background="@color/colorAccent"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:text="QuizNamn"
                     android:textColor="@color/colorPrimary"
-                    android:layout_weight="0.25"
-                    android:padding="5dp"
-
+                    android:textSize="14sp"
+                    android:padding="6dp"
+                    android:typeface="normal"
                     />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
+
+
+                <TextView
+                    android:id="@+id/text_view_quiz_walk_info"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/btn_edit_quizwalk"
                     android:background="@color/colorPrimary"
-                    android:src="@android:drawable/ic_menu_edit"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_weight="0.25"
-                    android:padding="5dp"
-
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="QuizNamn"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="26sp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="12dp"
+                    android:typeface="normal"
+                    android:visibility="visible" />
+                <android.support.design.widget.TabLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    app1:tabMode="fixed"
+                    android:id="@+id/tablayout_quizwalks_id"
+                    android:background="@color/colorPrimary"
+                    app1:tabTextColor="@color/colorAccent"
+                    app1:tabSelectedTextColor="@color/colorAccentLighter"
                     />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/btn_info_quizwalk"
-                    android:background="@color/colorPrimary"
-                    android:src="@android:drawable/ic_menu_info_details"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_weight="0.25"
-                    android:padding="5dp"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary">
 
-                    />
+                </android.support.v7.widget.LinearLayoutCompat>
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/btn_start_quizwalk"
-                    android:background="@color/colorPrimary"
-                    android:src="@android:drawable/ic_menu_directions"
-                    android:padding="5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_weight="0.25"
-                    />
 
-            </LinearLayout>
+
+
+
+
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/colorPrimary">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager_myquizwalk_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="90"
+                            android:background="#DF8B5D"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/btn_delete_quizwalk"
+                                android:background="@color/colorPrimary"
+                                android:src="@android:drawable/ic_menu_delete"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_weight="0.25"
+                                android:padding="5dp"
+
+                                />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:id="@+id/btn_edit_quizwalk"
+                                android:background="@color/colorPrimary"
+                                android:src="@android:drawable/ic_menu_edit"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_weight="0.25"
+                                android:padding="5dp"
+
+                                />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:id="@+id/btn_info_quizwalk"
+                                android:background="@color/colorPrimary"
+                                android:src="@android:drawable/ic_menu_info_details"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_weight="0.25"
+                                android:padding="5dp"
+
+                                />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:id="@+id/btn_start_quizwalk"
+                                android:background="@color/colorPrimary"
+                                android:src="@android:drawable/ic_menu_directions"
+                                android:padding="5dp"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_weight="0.25"
+                                />
+
+                        </LinearLayout>
 
 
 

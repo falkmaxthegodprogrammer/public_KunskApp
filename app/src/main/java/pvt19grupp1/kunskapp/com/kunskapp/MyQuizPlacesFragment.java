@@ -42,6 +42,7 @@ import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
 import pvt19grupp1.kunskapp.com.kunskapp.models.User;
 import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuizWalkRepositoryTemp;
+import pvt19grupp1.kunskapp.com.kunskapp.util.QuizWalksHardcodedUtil;
 import pvt19grupp1.kunskapp.com.kunskapp.util.TabbedDialog;
 import pvt19grupp1.kunskapp.com.kunskapp.util.VerticalSpacingDecorator;
 import pvt19grupp1.kunskapp.com.kunskapp.viewmodels.PlaceListViewModel;
@@ -229,7 +230,9 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
                         ((CreateQuizWalkActivity)(getActivity())).getmPlacesListViewModel().clearGooglePlaces();
                         ((CreateQuizWalkActivity)(getActivity())).navigateToTab(0);
                         ((CreateQuizWalkActivity)(getActivity())).getQuizMapFragment().zoomToRouteBounds();
-                        ((CreateQuizWalkActivity)(getActivity())).getQuizMapFragment().takeScreenshot();
+
+
+                        QuizWalksHardcodedUtil.printQuizWalk(qw);
 
                         Toast.makeText(getActivity(), "Tipspromenaden " + qw.getName() + " skapad!", Toast.LENGTH_LONG).show();
 

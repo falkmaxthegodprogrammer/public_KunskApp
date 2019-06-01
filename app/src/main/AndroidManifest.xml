@@ -31,6 +31,7 @@
         </activity>
         <activity android:name=".QuestionListActivity" />
         <activity android:name=".PlaceListActivity" />
+        <activity android:name=".QuizWalkActivity" />
         <activity
             android:name=".CreateQuizWalkActivity"
             android:label="@string/title_activity_place"

@@ -133,8 +133,9 @@ public class QuizWalkMapFragment extends Fragment implements OnMapReadyCallback 
         for (LatLng point : totalLatLngPoints) {
             bc.include(point);
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 180));
-     //   mMap.moveCamera(CameraUpdateFactory.zoomBy(-0.5f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 55));
+        float zoomLevel = mMap.getCameraPosition().zoom - 0.2f;
+        mMap.moveCamera(CameraUpdateFactory.zoomBy(-0.5f));
     }
 
     public void addMarkersFromQuizWalkList(List<QuizPlace> quizPlaces) {

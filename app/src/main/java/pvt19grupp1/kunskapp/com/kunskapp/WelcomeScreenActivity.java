@@ -23,7 +23,7 @@ public class WelcomeScreenActivity extends BaseActivity {
         btnStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeScreenActivity.this, LoginActivity.class);
+                Intent intent = new Intent(WelcomeScreenActivity.this, QuizWalkActivity.class);
                 startActivity(intent);
             }
         });

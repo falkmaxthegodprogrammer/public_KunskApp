@@ -18,9 +18,7 @@
                 android:id="@+id/quiz_walk_mapview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                map:cameraZoom="13"
-                map:liteMode="true"
-                map:mapType="normal" />
+           />
         </RelativeLayout>
 
 

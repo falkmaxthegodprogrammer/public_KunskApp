@@ -59,9 +59,10 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
         //QuizWalk handels = QuizWalksHardcodedUtil.createQuizWalkHandels();
 
         userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkHandels());
+        userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkFredhallsRundan());
 
 
-       // QuizWalksHardcodedUtil.printQuizPlaces(user);
+        QuizWalksHardcodedUtil.printQuizPlaces(user);
 
         //QuizWalksHardcodedUtil.printQuizPlaces(user);
 
