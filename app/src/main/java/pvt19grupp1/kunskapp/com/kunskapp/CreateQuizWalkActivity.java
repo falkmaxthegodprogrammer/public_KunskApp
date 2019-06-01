@@ -103,8 +103,9 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     private TextView textViewQuizInfo;
 
     private QuizMapFragment quizMapFragment;
-
     private User masterUser;
+
+    private QuizWalk quizWalkInstance;
 
     private static final int[] ACTION_BAR_SIZE = new int[] {
             android.R.attr.actionBarSize
@@ -114,6 +115,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        quizWalkInstance = null;
         masterUser = ((UserClient)(getApplicationContext())).getUser();
 
         LayoutInflater inflater = getLayoutInflater();
@@ -165,9 +167,9 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
             }
         });
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbarid);
 
         quizMapFragment = new QuizMapFragment();
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbarid);
         fragmentViewPager = (ViewPager) findViewById(R.id.viewpager_id);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -199,7 +201,6 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 final LatLng latLng = place.getLatLng();
-                mPlacesListViewModel.clearGooglePlaces();
                 mPlacesListViewModel.addPlace(new GooglePlaceModel(place.getAddress(), place.getLatLng().latitude, place.getLatLng().longitude, place.getUserRatingsTotal(), place.getId(), place.getName(), place.getTypes().get(0).toString()));
                 quizMapFragment.zoomToLocation(latLng);
             }
@@ -395,9 +396,9 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         }
 
 
-        mPlacesListViewModel.clearGooglePlaces();
+    /*    mPlacesListViewModel.clearGooglePlaces();
         mQuizPlacesViewModel.clearQuizPlaces();
-        quizMapFragment.clearLocalDataStructures();
+        quizMapFragment.clearLocalDataStructures(); */
 
         /* List<QuizPlace> tempList = new ArrayList<>();
         if(mQuizPlacesViewModel.getQuizPlaces().getValue() != null && mQuizPlacesViewModel.getQuizPlaces().getValue().size() > 0) {
@@ -412,7 +413,33 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
         }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mPlacesListViewModel.clearGooglePlaces();
+        mQuizPlacesViewModel.clearQuizPlaces();
+        quizMapFragment.clearLocalDataStructures();
+
     }
+
+    public TabLayout getTabLayout() {
+        return tabLayout;
+    }
+
+    public void navigateToTab(int i) {
+        tabLayout.getTabAt(i).select();
+    }
+
+    public QuizWalk getQuizWalkInstance() {
+        return quizWalkInstance;
+    }
+
+    public void setQuizWalkInstance(QuizWalk quizWalk) {
+        this.quizWalkInstance = quizWalk;
+    }
+
+}
 
 
 

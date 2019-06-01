@@ -1,5 +1,7 @@
 package pvt19grupp1.kunskapp.com.kunskapp.models;
 
+import android.graphics.Bitmap;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
@@ -14,6 +16,8 @@ public class QuizWalk {
     private List<QuizPlace> quizPlaces;
     private List<LatLng> latLngPoints;
     private double totaldistance;
+
+    private Bitmap bitMapQuizRoute;
 
     public List<LatLng> getLatLngPoints() {
         return latLngPoints;
@@ -50,5 +54,9 @@ public class QuizWalk {
     public void setName(String n) { this.name = n; }
 
     public void setDescription(String desc) { this.description = description; }
+
+    public Bitmap getBitMapQuizRoute() { return bitMapQuizRoute; }
+
+    public void setBitMapQuizRoute(Bitmap bitMapQuizRoute) { this.bitMapQuizRoute = bitMapQuizRoute; }
 
 }

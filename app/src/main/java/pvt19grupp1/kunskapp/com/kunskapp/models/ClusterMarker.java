@@ -11,8 +11,8 @@ public class ClusterMarker implements ClusterItem {
         private int iconPicture;
 
 
-    private QuizPlace mQuizPlace;
-   //     private User user;
+        private QuizPlace mQuizPlace;
+
 
         public ClusterMarker(LatLng position, String title, String snippet, int iconPicture, QuizPlace qp) {
             this.position = position;
@@ -30,22 +30,14 @@ public class ClusterMarker implements ClusterItem {
             this.iconPicture = iconPicture;
         }
 
-    public QuizPlace getmQuizPlace() {
+        public QuizPlace getmQuizPlace() {
         return mQuizPlace;
     }
 
-    public void setmQuizPlace(QuizPlace mQuizPlace) {
+        public void setmQuizPlace(QuizPlace mQuizPlace) {
         this.mQuizPlace = mQuizPlace;
     }
 
-    /*     public User getUser() {
-   ///         return user;
-   //     }
-
-        public void setUser(User user) {
-   //         this.user = user;
-        }
-*/
         public void setPosition(LatLng position) {
             this.position = position;
         }

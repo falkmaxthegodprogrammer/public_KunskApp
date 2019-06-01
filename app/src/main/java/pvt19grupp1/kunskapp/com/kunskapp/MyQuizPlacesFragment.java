@@ -212,17 +212,27 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
                 "Spara",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        QuizWalk qw = new QuizWalk(input.getText().toString(), "Empty description", mQuizPlacesViewModel.getQuizPlaces().getValue());
+                        ((CreateQuizWalkActivity)(getActivity())).setQuizWalkInstance(
+                                new QuizWalk(input.getText().toString(), "Empty description", mQuizPlacesViewModel.getQuizPlaces().getValue())
+                        );
+
+                        QuizWalk qw = ((CreateQuizWalkActivity)(getActivity())).getQuizWalkInstance();
 
                         qw.setLatLngPoints(mQuizMapFragmentReference.getTotalLatLngPoints());
                         qw.setTotaldistance(mQuizMapFragmentReference.getTotalDistance());
 
+                        dialog.cancel();
+
                         User user = ((CreateQuizWalkActivity)(getActivity())).getMasterUser();
                         user.addQuizWalk(qw);
 
+                        ((CreateQuizWalkActivity)(getActivity())).getmPlacesListViewModel().clearGooglePlaces();
+                        ((CreateQuizWalkActivity)(getActivity())).navigateToTab(0);
+                        ((CreateQuizWalkActivity)(getActivity())).getQuizMapFragment().zoomToRouteBounds();
+                        ((CreateQuizWalkActivity)(getActivity())).getQuizMapFragment().takeScreenshot();
+
                         Toast.makeText(getActivity(), "Tipspromenaden " + qw.getName() + " skapad!", Toast.LENGTH_LONG).show();
 
-                        dialog.cancel();
                     }
                 });
 

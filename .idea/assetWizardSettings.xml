@@ -165,8 +165,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\maxfa\Desktop\kunskapplogga.png" />
-                                      <entry key="outputName" value="kunskapplogo" />
+                                      <entry key="imageAsset" value="C:\Users\maxfa\Desktop\kunskapp_quizwalk_bg_selected.jpg" />
+                                      <entry key="outputName" value="kunskapp_quizwalk_bg_selected" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -185,6 +185,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>
