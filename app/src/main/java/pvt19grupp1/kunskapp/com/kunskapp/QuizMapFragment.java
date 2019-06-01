@@ -114,6 +114,7 @@ public class QuizMapFragment extends Fragment implements
 
     private ArrayList<LatLng> markerPoints = new ArrayList<>();
     private List<LatLng> totalLatLngPoints = new ArrayList<>();
+    private List<LatLng> quizPlacesLatLngPoints = new ArrayList<>();
 
     private double totalDistance;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -218,11 +219,13 @@ public class QuizMapFragment extends Fragment implements
             @Override
             public void onChanged(@Nullable List<GooglePlaceModel> places) {
 
-                if (!googlePlaceAPIMarkers.isEmpty()) {
-                    clearGoogleAPIMarkers();
+                if(places != null) {
+                    if(places.size() == 0) {
+                        if (!googlePlaceAPIMarkers.isEmpty()) {
+                            clearGoogleAPIMarkers();
+                        }
+                    }
                 }
-
-                if (places != null && places.size() > 0) {
 
                     for (GooglePlaceModel place : places) {
                         if (!place.isUserCreated()) {
@@ -237,7 +240,7 @@ public class QuizMapFragment extends Fragment implements
                             userCreatedMarkers.add(marker);
                         }
                     }
-                }
+
             }
         });
 
@@ -245,21 +248,26 @@ public class QuizMapFragment extends Fragment implements
             @Override
             public void onChanged(@Nullable List<QuizPlace> quizPlaces) {
 
+                System.out.println("ON CHANGED CALL... MY QUIZ PLACES");
                 if (quizPlaces.size() == 0) {
                     if (mMap != null) {
                         mMap.clear();
                     }
                     clearLocalDataStructures();
                     ((CreateQuizWalkActivity) getActivity()).updateQuizInfoTextDefaultMsg();
-                    return;
                 }
+
+                markerPoints.clear();
+                quizPlacesLatLngPoints.clear();
 
                 for (int i = 0; i < quizPlaces.size(); i++) {
                     QuizPlace quizPlace = quizPlaces.get(i);
+                    System.out.println(quizPlaces.size() + " ------- QUIZPLACES SIZE");
                     if (quizPlace != null) {
                         addCustomMapMarker(quizPlace);
                     }
                     markerPoints.add(new LatLng(quizPlace.getLatitude(), quizPlace.getLongitude()));
+                    quizPlacesLatLngPoints.add(new LatLng(quizPlace.getLatitude(), quizPlace.getLongitude()));
                 }
 
                 if (markerPoints.size() >= 2) {
@@ -270,7 +278,7 @@ public class QuizMapFragment extends Fragment implements
                     downloadTask.execute(url);
                 }
 
-                if (markerPoints.size() == 2) {
+                if (quizPlacesLatLngPoints.size() == 2) {
                     totalDistance = SphericalUtil.computeDistanceBetween(markerPoints.get(0), markerPoints.get(1));
                 }
 
@@ -414,7 +422,6 @@ public class QuizMapFragment extends Fragment implements
     public void zoomToLocation(LatLng latLng) {
         float zoom = mMap.getCameraPosition().zoom + 0.4f;
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-
     }
 
     private void addCustomMapMarker(QuizPlace quizPlace) {

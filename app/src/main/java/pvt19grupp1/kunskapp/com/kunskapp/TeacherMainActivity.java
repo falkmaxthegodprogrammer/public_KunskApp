@@ -76,4 +76,12 @@ public class TeacherMainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(masterUser == null) {
+            masterUser = ((UserClient)getApplicationContext()).getUser();
+        }
+    }
+
 }

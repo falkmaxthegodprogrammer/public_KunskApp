@@ -84,8 +84,13 @@ public class QuizListFragment extends Fragment implements OnPlaceListListener {
             @Override
             public void onChanged (@Nullable List<GooglePlaceModel> places) {
                 if(places != null && places.size() == 0) {
-                    placeRecyclerAdapter.setmGooglePlaces(new ArrayList<GooglePlaceModel>());
-                }
+                    try {
+                        placeRecyclerAdapter.setmGooglePlaces(new ArrayList<GooglePlaceModel>());
+                    } catch(NullPointerException e){
+
+                        }
+                    }
+
                 if(places.size() > 0) {
                     placeRecyclerAdapter.setmGooglePlaces(places);
                 }

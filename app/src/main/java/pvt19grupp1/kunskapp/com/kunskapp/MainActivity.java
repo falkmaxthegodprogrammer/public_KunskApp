@@ -207,6 +207,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mAuth.addAuthStateListener(mAuthListener);
+
         if(checkMapServices()) {
             if(mLocationPermissionGranted) {
 

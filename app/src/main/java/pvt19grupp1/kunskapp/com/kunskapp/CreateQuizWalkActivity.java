@@ -138,6 +138,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
         textViewQuizInfo.setText("Inga tillagda platser!");
         textViewQuizInfo.setVisibility(View.INVISIBLE);
 
+
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -168,6 +169,8 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             }
         });
         appBarLayout = (AppBarLayout) findViewById(R.id.appbarid);
+
+
 
         quizMapFragment = new QuizMapFragment();
         fragmentViewPager = (ViewPager) findViewById(R.id.viewpager_id);
@@ -230,6 +233,9 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
         });
         colorAnimation.start();
+
+        startUpRoutine();
+
     }
 
     public void searchPlaceApi(String query, String language) {
@@ -239,6 +245,24 @@ public class CreateQuizWalkActivity extends BaseActivity  {
 
     public void updateQuizInfoTextDefaultMsg() {
         textViewQuizInfo.setText("Inga platser tillagda!");
+    }
+
+    public void startUpRoutine() {
+        if(mQuizPlacesViewModel.getQuizPlaces().getValue() != null) {
+            if(mQuizPlacesViewModel.getQuizPlaces().getValue().size() > 0) {
+                mQuizPlacesViewModel.getQuizPlaces().getValue().clear();
+            }
+        }
+
+        if(mPlacesListViewModel.getGooglePlaces().getValue() != null) {
+            if(mPlacesListViewModel.getGooglePlaces().getValue().size() > 0) {
+                mPlacesListViewModel.getGooglePlaces().getValue().clear();
+            }
+        }
+
+        quizMapFragment.clearLocalDataStructures();
+        quizMapFragment.clearMap();
+
     }
 
     class BottomNavigationViewListener implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -395,8 +419,7 @@ public class CreateQuizWalkActivity extends BaseActivity  {
             masterUser = ((UserClient)(getApplicationContext())).getUser();
         }
 
-
-    /*    mPlacesListViewModel.clearGooglePlaces();
+      /*  mPlacesListViewModel.clearGooglePlaces();
         mQuizPlacesViewModel.clearQuizPlaces();
         quizMapFragment.clearLocalDataStructures(); */
 
