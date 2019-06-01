@@ -75,6 +75,7 @@ public class QuizWalkActivity extends FragmentActivity {
         btnStartQuizWalk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(QuizWalkActivity.this);
                 builder1.setMessage("Starta tipspromenad?");
                 builder1.setCancelable(true);
@@ -83,14 +84,13 @@ public class QuizWalkActivity extends FragmentActivity {
                         "STARTA!",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                                 mQuizWalkMapFragment.zoomToMyLocation();
-
                                 dialog.cancel();
                                 btnStartQuizWalk.setText("ÖVERSIKT");
                                 double distance = SphericalUtil.computeDistanceBetween(new LatLng(59.3311,18.0019), new LatLng(qwTestObject.getQuizPlaces().get(0).getLatitude(), qwTestObject.getQuizPlaces().get(0).getLongitude()));
                                 textViewQuizWalkInfoBar.setText(qwTestObject.getName() + "\n" + "0/11 frågor besvarade.");
                                 textViewQuizWalkInfoBar.setText("Gå " + (int) distance + " meter till " + qwTestObject.getQuizPlaces().get(0).getName() + " för att få första frågan! ");
+                                mQuizWalkMapFragment.startPingingLocation();
                             }
                         });
 
@@ -107,6 +107,14 @@ public class QuizWalkActivity extends FragmentActivity {
             }
         });
 
+    }
+
+    public void setInfoText(String text) {
+
+    }
+
+    public void setInfoTextQuizRunning(int distance, int nextPlace) {
+        textViewQuizWalkInfoBar.setText("Gå " + distance + " meter till " + qwTestObject.getQuizPlaces().get(nextPlace).getName() + " för att få nästa fråga (Inom 6 meters radie).");
     }
 
     public QuizWalk getQwTestObject() {

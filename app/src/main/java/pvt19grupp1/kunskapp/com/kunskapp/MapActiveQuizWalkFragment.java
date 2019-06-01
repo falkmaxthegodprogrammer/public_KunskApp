@@ -2,11 +2,14 @@ package pvt19grupp1.kunskapp.com.kunskapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -14,13 +17,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.DebugUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallbacks;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.internal.location.zzas;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,7 +46,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.LogDescriptor;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.maps.android.SphericalUtil;
 import com.google.maps.android.clustering.ClusterManager;
@@ -69,6 +82,10 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     private GeoPoint lastKnownLocation;
     private LatLng lastKnownLatLng;
     private QuizWalk quizWalkTest;
+    private LocationRequest locationRequest;
+    private GoogleApiClient apiClient;
+    private LocationCallback locationCallBack;
+    private int nextQuizPlace = 0;
 
     public MapActiveQuizWalkFragment() {
     }
@@ -106,6 +123,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         getLastKnownLocation();
 
+
         return view;
     }
 
@@ -113,17 +131,60 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mapFragment.getMapAsync(this);
-    }
 
+    }
 
     public void zoomToMyLocation() {
         CameraPosition cameraPosition = new CameraPosition.Builder().
-                target(new LatLng(59.3311, 18.0019)).
+                target(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())).
                 zoom(18.5f).
                 tilt(55).
                 bearing(25).
                 build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    public void startPingingLocation() {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(500);
+        locationRequest.setFastestInterval(500);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            getLocationPermission();
+        }
+
+        locationCallBack = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                Location location = locationResult.getLastLocation();
+                if (location != null) {
+                    lastKnownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    zoomToMyLocation();
+                    double distanceToNextQuizPlace = SphericalUtil.computeDistanceBetween(latLngLocation, new LatLng(quizWalkTest.getQuizPlaces().get(nextQuizPlace).getLatitude(), quizWalkTest.getQuizPlaces().get(nextQuizPlace).getLongitude()));
+                    Log.d(TAG, "onLocationResult - LatLng: " + location.getLatitude() + "," + location.getLongitude() + " - Distance to next place: " + (int) distanceToNextQuizPlace);
+
+                    /***
+                     * Updating QuizInfoBar in
+                     * QuizWalkActivity
+                     */
+
+                    ((QuizWalkActivity)getActivity()).setInfoTextQuizRunning((int) distanceToNextQuizPlace, nextQuizPlace);
+
+                    /***
+                      *
+                      * Logic for displaying next questions etc.
+                      *
+                      */
+
+                    if (distanceToNextQuizPlace < 15) {
+                        showReceiveQuestionDialog();
+                    }
+                }
+            }
+        };
+        mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, Looper.myLooper());
     }
 
     @Override
@@ -137,7 +198,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
 
         mMap.setBuildingsEnabled(true);
         mMap.setMyLocationEnabled(true);
-
 
         LatLng sthlm = new LatLng(59.3311, 18.0019);
 
@@ -169,11 +229,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         mMap.addPolyline(lineOptions2);
 
         zoomToRouteBounds(quizWalkTest.getLatLngPoints());
-
-        for(QuizPlace qp : quizWalkTest.getQuizPlaces()) {
-            System.out.println(qp.getLatitude() + "," + qp.getLongitude());
-        }
-
     }
 
     @Override
@@ -213,12 +268,15 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
             return;
         }
         mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful()) {
                     Location location = task.getResult();
                     lastKnownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-                    System.out.println("onComplete: " + lastKnownLocation.getLatitude() + "," + location.getLongitude());
+                    LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    System.out.println("onComplete: " + "number: " + " check." + lastKnownLocation.getLatitude() + "," + location.getLongitude());
+
                 }
             }
         });
@@ -280,7 +338,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
@@ -312,6 +369,29 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         }
     }
 
+    public void showReceiveQuestionDialog() {
+        mFusedLocationClient.removeLocationUpdates(locationCallBack);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Du är nu inom 15 meter från " + quizWalkTest.getQuizPlaces().get(nextQuizPlace).getName() + "! Gör dig redo för fråga!");
+        builder1.setCancelable(false);
+
+        builder1.setPositiveButton(
+                "Visa fråga!",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "onClick: VISAR FRÅGA");
+                        nextQuizPlace++;
+                        startPingingLocation();
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+
     public QuizWalk getQuizWalkTest() {
         return quizWalkTest;
     }
@@ -319,7 +399,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void setQuizWalkTest(QuizWalk quizWalkTest) {
         this.quizWalkTest = quizWalkTest;
     }
-
 
     @Override
     public void onStart() {
