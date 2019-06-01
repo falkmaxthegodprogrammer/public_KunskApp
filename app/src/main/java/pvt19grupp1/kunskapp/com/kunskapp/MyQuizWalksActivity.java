@@ -55,11 +55,13 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
         textViewQuizWalkInfo = findViewById(R.id.text_view_quiz_walk_info);
         textViewBottom = findViewById(R.id.bottom_navigation);
         userQuizWalks = user.getMyQuizzes();
-        userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkHandels());
-        userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkHandels());
+
+        //QuizWalk handels = QuizWalksHardcodedUtil.createQuizWalkHandels();
+
         userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkHandels());
 
-        QuizWalksHardcodedUtil.printQuizPlaces(user);
+
+       // QuizWalksHardcodedUtil.printQuizPlaces(user);
 
         //QuizWalksHardcodedUtil.printQuizPlaces(user);
 
