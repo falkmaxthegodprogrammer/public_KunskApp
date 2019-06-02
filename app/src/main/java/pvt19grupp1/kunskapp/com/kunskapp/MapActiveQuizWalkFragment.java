@@ -176,7 +176,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
                     zoomToMyLocation();
                     double distanceToNextQuizPlace = SphericalUtil.computeDistanceBetween(latLngLocation, new LatLng(quizWalkTest.getQuizPlaces().get(nextQuizPlace).getLatitude(), quizWalkTest.getQuizPlaces().get(nextQuizPlace).getLongitude()));
-                    Log.d(TAG, "onLocationResult - LatLng: " + location.getLatitude() + "," + location.getLongitude() + " - Distance to next place: " + (int) distanceToNextQuizPlace);
+                    Log.d(TAG, "onLocationResult - LatLng: " + location.getLatitude() + "," + location.getLongitude() + " - Distance to next place: " + (int) distanceToNextQuizPlace + " " + nextQuizPlace);
 
                     /***
                      * Updating QuizInfoBar in
@@ -396,10 +396,10 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(TAG, "onClick: VISAR FRÅGA");
+                        startPingingLocation();
+                        nextQuizPlace++;
                         dialog.cancel();
                         startNextQuestion();
-                        nextQuizPlace++;
-                        startPingingLocation();
                     }
                 });
 
@@ -433,8 +433,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onStop() {
         super.onStop();
-        stopPingingLocation();
-        started = false;
         mMapView.onStop();
     }
 
@@ -451,7 +449,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onDestroy() {
         mMapView.onDestroy();
         stopPingingLocation();
-        started = false;
 
         //    mapFragment.onDestroy();
         super.onDestroy();
@@ -468,7 +465,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onPause() {
         mMapView.onPause();
         super.onPause();
-        stopPingingLocation();
     }
 
     public void clearMap() {
