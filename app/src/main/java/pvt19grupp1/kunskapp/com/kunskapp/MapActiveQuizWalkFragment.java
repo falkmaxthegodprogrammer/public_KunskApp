@@ -385,7 +385,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     }
 
     public void showReceiveQuestionDialog() {
-        //stopPingingLocation();
+        stopPingingLocation();
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Du är nu inom 15 meter från " + quizWalkTest.getQuizPlaces().get(nextQuizPlace).getName() + "! Gör dig redo för fråga!");
         builder1.setCancelable(false);
@@ -396,9 +396,9 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(TAG, "onClick: VISAR FRÅGA");
-                        startPingingLocation();
                         dialog.cancel();
                         startNextQuestion();
+                        startPingingLocation();
                         nextQuizPlace++;
                     }
                 });
@@ -434,6 +434,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onStop() {
         super.onStop();
         stopPingingLocation();
+        started = false;
         mMapView.onStop();
     }
 
@@ -450,6 +451,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onDestroy() {
         mMapView.onDestroy();
         stopPingingLocation();
+        started = false;
 
         //    mapFragment.onDestroy();
         super.onDestroy();
