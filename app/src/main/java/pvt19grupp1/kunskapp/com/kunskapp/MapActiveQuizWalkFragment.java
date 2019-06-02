@@ -86,6 +86,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     private GoogleApiClient apiClient;
     private LocationCallback locationCallBack;
     private int nextQuizPlace = 0;
+    private int quizPlacesTotal;
 
     public MapActiveQuizWalkFragment() {
     }
@@ -103,6 +104,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        quizPlacesTotal = quizWalkTest.getQuizPlaces().size();
     }
 
     @Nullable
@@ -122,7 +124,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         setHasOptionsMenu(false);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         getLastKnownLocation();
-
 
         return view;
     }
@@ -173,9 +174,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     ((QuizWalkActivity)getActivity()).setInfoTextQuizRunning((int) distanceToNextQuizPlace, nextQuizPlace);
 
                     /***
-                      *
                       * Logic for displaying next questions etc.
-                      *
                       */
 
                     if (distanceToNextQuizPlace < 15) {
@@ -322,7 +321,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     }
 
     private void getLocationPermission() {
-        /*
+        /***
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
