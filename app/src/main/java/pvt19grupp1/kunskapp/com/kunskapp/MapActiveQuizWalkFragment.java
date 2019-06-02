@@ -149,8 +149,8 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
 
     public void startPingingLocation() {
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(5000);
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -179,7 +179,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                       * Logic for displaying next questions etc.
                       */
 
-                    if (distanceToNextQuizPlace < 15) {
+                    if (distanceToNextQuizPlace < 20) {
                         showReceiveQuestionDialog();
                     }
                 }
