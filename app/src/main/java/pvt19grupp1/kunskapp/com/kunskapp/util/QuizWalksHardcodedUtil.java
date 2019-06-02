@@ -527,7 +527,7 @@ public class QuizWalksHardcodedUtil {
         //59.34814982564936,18.001528792083263
 
         QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.34824,18.00029);
-        QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.34814982564936,18.001528792083263);
+        QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.34772318038529,18.001130484044552);
 
         quizPlaces.add(qp0);
         quizPlaces.add(qp1);
