@@ -90,6 +90,16 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     private int nextQuizPlace = 0;
     private int quizPlacesTotal;
 
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    private boolean started = false;
+
     public MapActiveQuizWalkFragment() {
     }
 
@@ -431,7 +441,9 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        startPingingLocation();
+        if(started) {
+            startPingingLocation();
+        }
     }
 
     @Override

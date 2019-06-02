@@ -90,6 +90,7 @@ public class QuizWalkActivity extends FragmentActivity {
                                 double distance = SphericalUtil.computeDistanceBetween(new LatLng(59.3311,18.0019), new LatLng(qwTestObject.getQuizPlaces().get(0).getLatitude(), qwTestObject.getQuizPlaces().get(0).getLongitude()));
                                 textViewQuizWalkInfoBar.setText(qwTestObject.getName() + "\n" + "0/11 frågor besvarade.");
                                 textViewQuizWalkInfoBar.setText("Gå " + (int) distance + " meter till " + qwTestObject.getQuizPlaces().get(0).getName() + " för att få första frågan! ");
+                                mQuizWalkMapFragment.setStarted(true);
                                 mQuizWalkMapFragment.startPingingLocation();
                             }
                         });
