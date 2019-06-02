@@ -524,8 +524,10 @@ public class QuizWalksHardcodedUtil {
          * I: points.add(new LatLng(59.34819,18.00133));
          */
 
+        //59.34814982564936,18.001528792083263
+
         QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.34824,18.00029);
-         QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.34819,18.00133);
+        QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.34814982564936,18.001528792083263);
 
         quizPlaces.add(qp0);
         quizPlaces.add(qp1);
@@ -537,12 +539,12 @@ public class QuizWalksHardcodedUtil {
         q1.addAnswer(new Answer("KANSKE", false));
         q1.addAnswer(new Answer("HELT OK", false));
 
-        Question q2 = new Question("Funkar det????!?!? COOLT ISF");
+        Question q2 = new Question("FRPGA 2");
 
-        q1.addAnswer(new Answer("JA", true));
-        q1.addAnswer(new Answer("NEJ", false));
-        q1.addAnswer(new Answer("KANSKE", false));
-        q1.addAnswer(new Answer("HELT OK", false));
+        q1.addAnswer(new Answer("2", true));
+        q1.addAnswer(new Answer("2", false));
+        q1.addAnswer(new Answer("2", false));
+        q1.addAnswer(new Answer("2 OK", false));
 
 
         qp0.getQuestions().add(q1);
