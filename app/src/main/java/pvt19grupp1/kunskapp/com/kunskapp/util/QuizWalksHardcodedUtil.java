@@ -519,8 +519,13 @@ public class QuizWalksHardcodedUtil {
         List<LatLng> points = new ArrayList<>();
         //59.34772318038529,18.001130484044552
 
-         QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.34772318038529,18.001130484044552);
-         QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.35104423974072,18.004295155406);
+        /***
+         * I: points.add(new LatLng(59.34824,18.00029));
+         * I: points.add(new LatLng(59.34819,18.00133));
+         */
+
+        QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.34824,18.00029);
+         QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.34819,18.00133);
 
         quizPlaces.add(qp0);
         quizPlaces.add(qp1);
