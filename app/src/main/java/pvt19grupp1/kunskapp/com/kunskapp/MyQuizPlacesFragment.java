@@ -226,6 +226,7 @@ public class MyQuizPlacesFragment extends Fragment implements OnPlaceListListene
 
                         User user = ((CreateQuizWalkActivity)(getActivity())).getMasterUser();
                         user.addQuizWalk(qw);
+                        QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw);
 
                         ((CreateQuizWalkActivity)(getActivity())).getmPlacesListViewModel().clearGooglePlaces();
                         ((CreateQuizWalkActivity)(getActivity())).navigateToTab(0);

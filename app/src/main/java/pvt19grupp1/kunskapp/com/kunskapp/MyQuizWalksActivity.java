@@ -12,6 +12,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +47,8 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
     private QuizWalkMapFragment quizWalkMapFragment;
     private ViewPager fragmentViewPager;
 
+    private ImageButton startQuizWalkIcon;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +58,11 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
 
         textViewQuizWalkInfo = findViewById(R.id.text_view_quiz_walk_info);
         textViewBottom = findViewById(R.id.bottom_navigation);
-        userQuizWalks = user.getMyQuizzes();
+
+        userQuizWalks.clear();
+        userQuizWalks.addAll(QuizWalkRepositoryTemp.globalTempAllQuizWalks);
 
         //QuizWalk handels = QuizWalksHardcodedUtil.createQuizWalkHandels();
-
-        userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkHandels());
-        userQuizWalks.add(QuizWalksHardcodedUtil.createQuizWalkFredhallsRundan());
-
 
         QuizWalksHardcodedUtil.printQuizPlaces(user);
 
@@ -110,6 +112,14 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
 
         });
         colorAnimation.start();
+
+        startQuizWalkIcon = findViewById(R.id.btn_start_quizwalk);
+        startQuizWalkIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

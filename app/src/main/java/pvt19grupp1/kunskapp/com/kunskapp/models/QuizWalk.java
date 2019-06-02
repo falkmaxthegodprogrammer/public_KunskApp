@@ -1,6 +1,8 @@
 package pvt19grupp1.kunskapp.com.kunskapp.models;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -40,6 +42,7 @@ public class QuizWalk {
         this.description = description;
         this.quizPlaces = quizPlaces;
     }
+
 
     public boolean isRunning() { return running; }
 

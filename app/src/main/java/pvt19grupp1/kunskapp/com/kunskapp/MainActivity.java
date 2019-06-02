@@ -30,7 +30,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
+import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
 import pvt19grupp1.kunskapp.com.kunskapp.models.User;
+import pvt19grupp1.kunskapp.com.kunskapp.repositories.QuizWalkRepositoryTemp;
+import pvt19grupp1.kunskapp.com.kunskapp.util.QuizWalksHardcodedUtil;
 
 import static pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys.ERROR_DIALOG_REQUEST;
 import static pvt19grupp1.kunskapp.com.kunskapp.util.ConstantKeys.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
@@ -71,6 +75,13 @@ public class MainActivity extends BaseActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
+        QuizWalk qw1 = QuizWalksHardcodedUtil.createQuizWalkHandels();
+        QuizWalk qw2 = QuizWalksHardcodedUtil.createQuizWalkFredhallsRundan();
+        QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw1);
+        QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw2);
+
+        System.out.println(QuizWalkRepositoryTemp.globalTempAllQuizWalks.size() + " - MainActivity: ADDED quizwalks");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

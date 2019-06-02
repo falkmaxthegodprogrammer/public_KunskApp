@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.R;
+import pvt19grupp1.kunskapp.com.kunskapp.models.Answer;
+import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
 import pvt19grupp1.kunskapp.com.kunskapp.models.User;
@@ -32,6 +34,16 @@ public class QuizWalksHardcodedUtil {
         quizPlaces.add(qp);
         quizPlaces.add(qp2);
         quizPlaces.add(qp3);
+
+        Question q1 = new Question("När öppnades Gröna Linjen i Stockholms tunnelbanesystem?");
+
+        q1.addAnswer(new Answer("1952", false));
+        q1.addAnswer(new Answer("1964", false));
+        q1.addAnswer(new Answer("1921", false));
+        q1.addAnswer(new Answer("1958", true));
+
+        qp.getQuestions().add(q1);
+
 
         handels = new QuizWalk("Handelshögskolan quiz", "Kort beskrivning, men något längre text iofs.. ", quizPlaces);
 
@@ -96,11 +108,33 @@ public class QuizWalksHardcodedUtil {
         QuizPlace qp4 = new QuizPlace("Thorildsplan",59.332433572423085,18.01586989313364);
         QuizPlace qp5 = new QuizPlace("Plaskis",59.33190258336407,18.003916628658768);
 
+
+
+        Question q1 = new Question("När öppnades Gröna Linjen i Stockholms tunnelbanesystem?");
+
+        q1.addAnswer(new Answer("1952", false));
+        q1.addAnswer(new Answer("1964", false));
+        q1.addAnswer(new Answer("1921", false));
+        q1.addAnswer(new Answer("1958", true));
+
+        Question q2 = new Question("Vilket område hör Fredhäll till?");
+
+        q2.addAnswer(new Answer("Kungsholmen", true));
+        q2.addAnswer(new Answer("Essingen", false));
+        q2.addAnswer(new Answer("Alvik/Bromma", false));
+        q2.addAnswer(new Answer("Norrmalm", false));
+
+        qp1.getQuestions().add(q1);
+        qp1.getQuestions().add(q2);
+
         quizPlaces.add(qp1);
         quizPlaces.add(qp2);
         quizPlaces.add(qp3);
         quizPlaces.add(qp4);
         quizPlaces.add(qp5);
+
+
+        System.out.println(" ----------- HardCodeUtil: ADDING QUESTIONS TO QUIZPLACE 1 -----------" + q1.getAnswers().size() + " - answers size" + quizPlaces.get(0).getQuestions().size() + " - questions size");
 
         fredhall = new QuizWalk("Fredhällsrundan", "En härlig tur runt Fredhäll! ", quizPlaces);
 

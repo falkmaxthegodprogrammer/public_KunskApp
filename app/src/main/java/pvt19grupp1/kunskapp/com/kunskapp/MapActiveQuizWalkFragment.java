@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -57,6 +58,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pvt19grupp1.kunskapp.com.kunskapp.models.ClusterMarker;
+import pvt19grupp1.kunskapp.com.kunskapp.models.Question;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizPlace;
 import pvt19grupp1.kunskapp.com.kunskapp.models.QuizWalk;
 import pvt19grupp1.kunskapp.com.kunskapp.util.ClusterManagerRenderer;
@@ -104,7 +106,6 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        quizPlacesTotal = quizWalkTest.getQuizPlaces().size();
     }
 
     @Nullable
@@ -124,6 +125,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         setHasOptionsMenu(false);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         getLastKnownLocation();
+        quizPlacesTotal = quizWalkTest.getQuizPlaces().size();
 
         return view;
     }
@@ -368,8 +370,12 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         }
     }
 
-    public void showReceiveQuestionDialog() {
+    public void stopPingingLocation() {
         mFusedLocationClient.removeLocationUpdates(locationCallBack);
+    }
+
+    public void showReceiveQuestionDialog() {
+        stopPingingLocation();
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Du är nu inom 15 meter från " + quizWalkTest.getQuizPlaces().get(nextQuizPlace).getName() + "! Gör dig redo för fråga!");
         builder1.setCancelable(false);
@@ -380,14 +386,21 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(TAG, "onClick: VISAR FRÅGA");
-                        nextQuizPlace++;
                         startPingingLocation();
                         dialog.cancel();
+                        startNextQuestion();
+                        nextQuizPlace++;
                     }
                 });
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    public void startNextQuestion() {
+        Intent intent = new Intent(getActivity(), QuestionActivity.class);
+        intent.putParcelableArrayListExtra("questions", quizWalkTest.getQuizPlaces().get(nextQuizPlace).getQuestions());
+        startActivity(intent);
     }
 
 
@@ -410,6 +423,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onStop() {
         super.onStop();
+        stopPingingLocation();
         mMapView.onStop();
     }
 
@@ -422,6 +436,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onDestroy() {
         mMapView.onDestroy();
+        stopPingingLocation();
 
         //    mapFragment.onDestroy();
         super.onDestroy();

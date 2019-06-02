@@ -9,7 +9,7 @@ public class QuizPlace {
     private GooglePlaceModel googlePlace;
     private String name;
     private double rating;
-    private List<Question> questions;
+    private ArrayList<Question> questions;
     private double latitude;
     private double longitude;
 
@@ -31,7 +31,7 @@ public class QuizPlace {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.questions = new ArrayList<Question>();
+        this.questions = new ArrayList<>();
     }
 
     public double getLatitude() { return latitude; }
@@ -50,11 +50,11 @@ public class QuizPlace {
         this.rating = rating;
     }
 
-    public List<Question> getQuestions() {
+    public ArrayList<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
 
