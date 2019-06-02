@@ -397,9 +397,9 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(TAG, "onClick: VISAR FRÅGA");
                         startPingingLocation();
-                        nextQuizPlace++;
                         dialog.cancel();
                         startNextQuestion();
+                        nextQuizPlace++;
                     }
                 });
 
