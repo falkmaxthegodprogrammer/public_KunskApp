@@ -385,7 +385,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     }
 
     public void showReceiveQuestionDialog() {
-        stopPingingLocation();
+        //stopPingingLocation();
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Du är nu inom 15 meter från " + quizWalkTest.getQuizPlaces().get(nextQuizPlace).getName() + "! Gör dig redo för fråga!");
         builder1.setCancelable(false);
