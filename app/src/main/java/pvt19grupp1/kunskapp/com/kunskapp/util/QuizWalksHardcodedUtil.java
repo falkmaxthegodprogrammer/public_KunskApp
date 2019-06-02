@@ -558,7 +558,7 @@ public class QuizWalksHardcodedUtil {
 
         qp0.getQuestions().add(q1);
         qp1.getQuestions().add(q2);
-        qp2.getQuestions().add(q2);
+        qp2.getQuestions().add(q3);
 
 
         jockeQuizWalk = new QuizWalk("Jockes Personliga Quizpromenad", "Kort beskrivning, men något längre text iofs.. ", quizPlaces);

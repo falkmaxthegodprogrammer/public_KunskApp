@@ -179,7 +179,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                       * Logic for displaying next questions etc.
                       */
 
-                    if (distanceToNextQuizPlace < 15) {
+                    if (distanceToNextQuizPlace < 20) {
                         showReceiveQuestionDialog();
                     }
                 }
