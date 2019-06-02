@@ -431,6 +431,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        startPingingLocation();
     }
 
     @Override
@@ -453,6 +454,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     public void onPause() {
         mMapView.onPause();
         super.onPause();
+        stopPingingLocation();
     }
 
     public void clearMap() {

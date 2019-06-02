@@ -526,9 +526,9 @@ public class QuizWalksHardcodedUtil {
 
         //59.34814982564936,18.001528792083263
 
-         QuizPlace qp0 = new QuizPlace("1",59.34761036463562,18.000862933695316);
-         QuizPlace qp1 = new QuizPlace("2",59.34786625072871,18.001245483756065);
-         QuizPlace qp2 = new QuizPlace("3",59.348051198594725,18.001550249755383);
+        QuizPlace qp0 = new QuizPlace("1",59.34761036463562,18.000862933695316);
+        QuizPlace qp1 = new QuizPlace("2",59.34786625072871,18.001245483756065);
+        QuizPlace qp2 = new QuizPlace("3",59.348051198594725,18.001550249755383);
 
         quizPlaces.add(qp0);
         quizPlaces.add(qp1);
@@ -598,8 +598,6 @@ public class QuizWalksHardcodedUtil {
 
         return jockeQuizWalk;
     }
-
-
 
     public static void printQuizPlaces(User user) {
         if(user.getMyQuizzes() != null && user.getMyQuizzes().size() > 0) {
