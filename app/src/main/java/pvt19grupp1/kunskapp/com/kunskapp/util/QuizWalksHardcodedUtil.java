@@ -526,11 +526,13 @@ public class QuizWalksHardcodedUtil {
 
         //59.34814982564936,18.001528792083263
 
-        QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.34824,18.00029);
-        QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.34772318038529,18.001130484044552);
+         QuizPlace qp0 = new QuizPlace("1",59.34761036463562,18.000862933695316);
+         QuizPlace qp1 = new QuizPlace("2",59.34786625072871,18.001245483756065);
+         QuizPlace qp2 = new QuizPlace("3",59.348051198594725,18.001550249755383);
 
         quizPlaces.add(qp0);
         quizPlaces.add(qp1);
+        quizPlaces.add(qp2);
 
         Question q1 = new Question("Funkar det????!?!? COOLT ISF");
 
@@ -541,14 +543,23 @@ public class QuizWalksHardcodedUtil {
 
         Question q2 = new Question("FRPGA 2");
 
-        q1.addAnswer(new Answer("2", true));
-        q1.addAnswer(new Answer("2", false));
-        q1.addAnswer(new Answer("2", false));
-        q1.addAnswer(new Answer("2 OK", false));
+        q2.addAnswer(new Answer("2", true));
+        q2.addAnswer(new Answer("2", false));
+        q2.addAnswer(new Answer("2", false));
+        q2.addAnswer(new Answer("2 OK", false));
+
+        Question q3 = new Question("FRPGA 3");
+
+        q3.addAnswer(new Answer("3", true));
+        q3.addAnswer(new Answer("3", false));
+        q3.addAnswer(new Answer("3", false));
+        q3.addAnswer(new Answer("3 OK", false));
 
 
         qp0.getQuestions().add(q1);
         qp1.getQuestions().add(q2);
+        qp2.getQuestions().add(q2);
+
 
         jockeQuizWalk = new QuizWalk("Jockes Personliga Quizpromenad", "Kort beskrivning, men något längre text iofs.. ", quizPlaces);
 
