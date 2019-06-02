@@ -518,7 +518,7 @@ public class QuizWalksHardcodedUtil {
         List<QuizPlace> quizPlaces = new ArrayList<>();
         List<LatLng> points = new ArrayList<>();
 
-         QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.349822339616736,18.003127723932266);
+         QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.34787018216332,18.001151271164417);
          QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.35104423974072,18.004295155406);
 
         quizPlaces.add(qp0);
