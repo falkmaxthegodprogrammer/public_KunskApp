@@ -345,6 +345,243 @@ public class QuizWalksHardcodedUtil {
         return fredhall;
     }
 
+    public static QuizWalk createKistaRundan() {
+        QuizWalk kistaRundan = null;
+        List<QuizPlace> quizPlaces = new ArrayList<>();
+        List<LatLng> points = new ArrayList<>();
+
+         QuizPlace qp0 = new QuizPlace("DSV, Kista",59.406773785524344,17.94513165950775);
+         QuizPlace qp1 = new QuizPlace("Skatteverket, Kista",59.40625658593633,17.94817864894867);
+         QuizPlace qp2 = new QuizPlace("Kistamässan",59.40574142613819,17.95582428574562);
+         QuizPlace qp3 = new QuizPlace("KTH, Kista",59.40496687998576,17.949514389038082);
+
+
+        Question q1 = new Question("När grundades DSV? (Institutionen för Data- och Systemvetenskap)");
+
+        q1.addAnswer(new Answer("1989", false));
+        q1.addAnswer(new Answer("1966", true));
+        q1.addAnswer(new Answer("2018", false));
+        q1.addAnswer(new Answer("1958", false));
+
+        Question q2 = new Question("När flyttade DSV in i Nodhuset?");
+
+        q2.addAnswer(new Answer("2014", true));
+        q2.addAnswer(new Answer("2012", false));
+        q2.addAnswer(new Answer("2009", false));
+        q2.addAnswer(new Answer("2010", false));
+
+        Question q3 = new Question("Vad heter DSV:s eminenta studentkår?");
+
+        q3.addAnswer(new Answer("FOO BAR", false));
+        q3.addAnswer(new Answer("PISK", false));
+        q3.addAnswer(new Answer("FISK", false));
+        q3.addAnswer(new Answer("DISK", true));
+
+        Question q4 = new Question("Hur många procent är företagsskatten i Sverige på?");
+
+        q4.addAnswer(new Answer("30%", false));
+        q4.addAnswer(new Answer("21.4", true));
+        q4.addAnswer(new Answer("25%", false));
+        q4.addAnswer(new Answer("35%", false));
+
+        Question q5 = new Question("Vilket år återinvidges Kistamässan?");
+
+        q5.addAnswer(new Answer("2003", false));
+        q5.addAnswer(new Answer("2012", false));
+        q5.addAnswer(new Answer("2008", true));
+        q5.addAnswer(new Answer("2016", false));
+
+
+        Question q6 = new Question("Hur mycket bättre är DSV än KTH?");
+
+        q5.addAnswer(new Answer("Jätte mkt", true));
+        q5.addAnswer(new Answer("Ganska mkt", false));
+        q5.addAnswer(new Answer("Väldigt mkt", false));
+        q5.addAnswer(new Answer("Sådär mkt", false));
+
+        qp0.getQuestions().add(q1);
+        qp0.getQuestions().add(q2);
+        qp0.getQuestions().add(q3);
+
+        qp1.getQuestions().add(q4);
+        qp2.getQuestions().add(q5);
+        qp3.getQuestions().add(q6);
+
+        quizPlaces.add(qp0);
+        quizPlaces.add(qp1);
+        quizPlaces.add(qp2);
+        quizPlaces.add(qp3);
+
+        kistaRundan = new QuizWalk("Kistarundan", "Demo-runda i Kista", quizPlaces);
+
+         points.add(new LatLng(59.40678,17.9451));
+         points.add(new LatLng(59.40672,17.94508));
+         points.add(new LatLng(59.4067,17.94507));
+         points.add(new LatLng(59.40668,17.94507));
+         points.add(new LatLng(59.40667,17.94507));
+         points.add(new LatLng(59.40665,17.94507));
+         points.add(new LatLng(59.40664,17.94507));
+         points.add(new LatLng(59.40662,17.94509));
+         points.add(new LatLng(59.4066,17.94513));
+         points.add(new LatLng(59.40657,17.94519));
+         points.add(new LatLng(59.40657,17.94519));
+         points.add(new LatLng(59.40652,17.94498));
+         points.add(new LatLng(59.4065,17.94491));
+         points.add(new LatLng(59.40644,17.94499));
+         points.add(new LatLng(59.40644,17.94499));
+         points.add(new LatLng(59.40591,17.94582));
+         points.add(new LatLng(59.40571,17.94613));
+         points.add(new LatLng(59.40565,17.94621));
+         points.add(new LatLng(59.40553,17.94638));
+         points.add(new LatLng(59.40547,17.94647));
+         points.add(new LatLng(59.40547,17.94647));
+         points.add(new LatLng(59.40545,17.94645));
+         points.add(new LatLng(59.40545,17.94644));
+         points.add(new LatLng(59.40545,17.94643));
+         points.add(new LatLng(59.40545,17.94642));
+         points.add(new LatLng(59.40544,17.94642));
+         points.add(new LatLng(59.40544,17.94641));
+         points.add(new LatLng(59.40544,17.9464));
+         points.add(new LatLng(59.40545,17.94639));
+         points.add(new LatLng(59.40545,17.94639));
+         points.add(new LatLng(59.40549,17.9465));
+         points.add(new LatLng(59.40552,17.94655));
+         points.add(new LatLng(59.40559,17.94672));
+         points.add(new LatLng(59.40571,17.94699));
+         points.add(new LatLng(59.40582,17.94726));
+         points.add(new LatLng(59.40594,17.94753));
+         points.add(new LatLng(59.4061,17.94791));
+         points.add(new LatLng(59.40623,17.94822));
+         points.add(new LatLng(59.40623,17.94822));
+         points.add(new LatLng(59.40633,17.94846));
+         points.add(new LatLng(59.40656,17.94901));
+         points.add(new LatLng(59.40657,17.94904));
+         points.add(new LatLng(59.40666,17.94923));
+         points.add(new LatLng(59.40669,17.94931));
+         points.add(new LatLng(59.4067,17.94947));
+         points.add(new LatLng(59.40673,17.94968));
+         points.add(new LatLng(59.40673,17.94969));
+         points.add(new LatLng(59.40676,17.94982));
+         points.add(new LatLng(59.40682,17.94998));
+         points.add(new LatLng(59.40691,17.9502));
+         points.add(new LatLng(59.40694,17.95025));
+         points.add(new LatLng(59.40701,17.95039));
+         points.add(new LatLng(59.40707,17.95052));
+         points.add(new LatLng(59.40713,17.95058));
+         points.add(new LatLng(59.40721,17.95066));
+         points.add(new LatLng(59.4073,17.9508));
+         points.add(new LatLng(59.4074,17.95096));
+         points.add(new LatLng(59.40766,17.95138));
+         points.add(new LatLng(59.40762,17.95149));
+         points.add(new LatLng(59.40762,17.95149));
+         points.add(new LatLng(59.40736,17.95215));
+         points.add(new LatLng(59.40695,17.95313));
+         points.add(new LatLng(59.40692,17.9532));
+         points.add(new LatLng(59.40687,17.95333));
+         points.add(new LatLng(59.40682,17.95344));
+         points.add(new LatLng(59.4065,17.95425));
+         points.add(new LatLng(59.4065,17.95434));
+         points.add(new LatLng(59.40631,17.9548));
+         points.add(new LatLng(59.40623,17.95501));
+         points.add(new LatLng(59.40619,17.95509));
+         points.add(new LatLng(59.4061,17.95524));
+         points.add(new LatLng(59.40602,17.95538));
+         points.add(new LatLng(59.40585,17.9556));
+         points.add(new LatLng(59.40572,17.95576));
+         points.add(new LatLng(59.40576,17.95591));
+         points.add(new LatLng(59.40578,17.9559));
+         points.add(new LatLng(59.40589,17.95575));
+         points.add(new LatLng(59.40615,17.95543));
+         points.add(new LatLng(59.40615,17.95543));
+         points.add(new LatLng(59.40607,17.95518));
+         points.add(new LatLng(59.40606,17.95502));
+         points.add(new LatLng(59.40606,17.95502));
+         points.add(new LatLng(59.40558,17.95358));
+         points.add(new LatLng(59.40516,17.95228));
+         points.add(new LatLng(59.40506,17.95199));
+         points.add(new LatLng(59.40492,17.95156));
+         points.add(new LatLng(59.4047,17.95088));
+         points.add(new LatLng(59.40448,17.95021));
+         points.add(new LatLng(59.40448,17.95021));
+         points.add(new LatLng(59.40475,17.9498));
+         points.add(new LatLng(59.40496,17.9495));
+
+         kistaRundan.setLatLngPoints(points);
+         kistaRundan.setTotaldistance(1557);
+
+        return kistaRundan;
+    }
+
+    public static QuizWalk createJockeQuizWalk() {
+
+        QuizWalk jockeQuizWalk = null;
+        List<QuizPlace> quizPlaces = new ArrayList<>();
+        List<LatLng> points = new ArrayList<>();
+
+         QuizPlace qp0 = new QuizPlace("Pax Studentbostäder",59.349822339616736,18.003127723932266);
+         QuizPlace qp1 = new QuizPlace("Ica nära Armegatan",59.35104423974072,18.004295155406);
+
+        quizPlaces.add(qp0);
+        quizPlaces.add(qp1);
+
+        Question q1 = new Question("Funkar det????!?!? COOLT ISF");
+
+        q1.addAnswer(new Answer("JA", true));
+        q1.addAnswer(new Answer("NEJ", false));
+        q1.addAnswer(new Answer("KANSKE", false));
+        q1.addAnswer(new Answer("HELT OK", false));
+
+        Question q2 = new Question("Funkar det????!?!? COOLT ISF");
+
+        q1.addAnswer(new Answer("JA", true));
+        q1.addAnswer(new Answer("NEJ", false));
+        q1.addAnswer(new Answer("KANSKE", false));
+        q1.addAnswer(new Answer("HELT OK", false));
+
+
+        qp0.getQuestions().add(q1);
+        qp1.getQuestions().add(q2);
+
+        jockeQuizWalk = new QuizWalk("Jockes Personliga Quizpromenad", "Kort beskrivning, men något längre text iofs.. ", quizPlaces);
+
+         points.add(new LatLng(59.34964,18.00246));
+         points.add(new LatLng(59.34968,18.00241));
+         points.add(new LatLng(59.34972,18.00234));
+         points.add(new LatLng(59.34986,18.00209));
+         points.add(new LatLng(59.35007,18.00177));
+         points.add(new LatLng(59.35014,18.0017));
+         points.add(new LatLng(59.35015,18.00169));
+         points.add(new LatLng(59.35037,18.00179));
+         points.add(new LatLng(59.35042,18.002));
+         points.add(new LatLng(59.35049,18.00222));
+         points.add(new LatLng(59.35049,18.00265));
+         points.add(new LatLng(59.35049,18.00289));
+         points.add(new LatLng(59.35044,18.00315));
+         points.add(new LatLng(59.35043,18.00322));
+         points.add(new LatLng(59.35039,18.00391));
+         points.add(new LatLng(59.35037,18.0042));
+         points.add(new LatLng(59.35037,18.0042));
+         points.add(new LatLng(59.35028,18.00419));
+         points.add(new LatLng(59.35024,18.00419));
+         points.add(new LatLng(59.35018,18.00418));
+         points.add(new LatLng(59.35018,18.00418));
+         points.add(new LatLng(59.35016,18.00435));
+         points.add(new LatLng(59.35016,18.00435));
+         points.add(new LatLng(59.35029,18.00439));
+         points.add(new LatLng(59.35043,18.00445));
+         points.add(new LatLng(59.35058,18.00451));
+         points.add(new LatLng(59.35092,18.0046));
+         points.add(new LatLng(59.35092,18.0046));
+         points.add(new LatLng(59.35103,18.00427));
+
+        jockeQuizWalk.setLatLngPoints(points);
+        jockeQuizWalk.setTotaldistance(528);
+
+        return jockeQuizWalk;
+    }
+
+
+
     public static void printQuizPlaces(User user) {
         if(user.getMyQuizzes() != null && user.getMyQuizzes().size() > 0) {
 

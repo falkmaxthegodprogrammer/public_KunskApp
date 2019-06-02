@@ -35,7 +35,7 @@ public class QuizWalkActivity extends FragmentActivity {
 
 
 
-    private QuizWalk qwTestObject = QuizWalksHardcodedUtil.createQuizWalkFredhallsRundan();
+    private QuizWalk qwTestObject = QuizWalksHardcodedUtil.createJockeQuizWalk();
     private Button btnStartQuizWalk;
 
     @Override
@@ -49,7 +49,7 @@ public class QuizWalkActivity extends FragmentActivity {
         mQuizWalkMapFragment.setQuizWalkTest(qwTestObject);
 
         textViewQuizWalkName.setText(qwTestObject.getName());
-        textViewQuizWalkInfoBar.setText("Platser: " + qwTestObject.getQuizPlaces().size() + " Sträcka: " + ((int) qwTestObject.getTotaldistance() / 1000) + "km. Ca-Tid: "  + (int) qwTestObject.getTotaldistance() / 85 + " minuter. Antal frågor: 11" );
+        textViewQuizWalkInfoBar.setText("Platser: " + qwTestObject.getQuizPlaces().size() + " Sträcka: " + ((int) qwTestObject.getTotaldistance()) + "m. Ca-Tid: "  + (int) qwTestObject.getTotaldistance() / 85 + " minuter. Antal frågor: " + qwTestObject.getQuizPlaces().size() );
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

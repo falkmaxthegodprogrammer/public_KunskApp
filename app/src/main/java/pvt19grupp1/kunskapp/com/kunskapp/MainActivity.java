@@ -78,8 +78,13 @@ public class MainActivity extends BaseActivity {
 
         QuizWalk qw1 = QuizWalksHardcodedUtil.createQuizWalkHandels();
         QuizWalk qw2 = QuizWalksHardcodedUtil.createQuizWalkFredhallsRundan();
+        QuizWalk qw3 = QuizWalksHardcodedUtil.createKistaRundan();
+        QuizWalk qw4 = QuizWalksHardcodedUtil.createJockeQuizWalk();
+
         QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw1);
         QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw2);
+        QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw3);
+        QuizWalkRepositoryTemp.globalTempAllQuizWalks.add(qw4);
 
         System.out.println(QuizWalkRepositoryTemp.globalTempAllQuizWalks.size() + " - MainActivity: ADDED quizwalks");
 
