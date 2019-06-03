@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Parcelable;
@@ -176,6 +177,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     lastKnownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                     LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
                     zoomToMyLocation();
+
                     double distanceToNextQuizPlace = SphericalUtil.computeDistanceBetween(latLngLocation, new LatLng(quizWalkTest.getQuizPlaces().get(nextQuizPlace).getLatitude(), quizWalkTest.getQuizPlaces().get(nextQuizPlace).getLongitude()));
                     Log.d(TAG, "onLocationResult - LatLng: " + location.getLatitude() + "," + location.getLongitude() + " - Distance to next place: " + (int) distanceToNextQuizPlace + " " + nextQuizPlace);
 
@@ -284,7 +286,12 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     Location location = task.getResult();
                     lastKnownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                     LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    bearing = location.getBearing();
+
+                    Location to = new Location(LocationManager.GPS_PROVIDER);
+                    to.setLatitude(quizWalkTest.getQuizPlaces().get(0).getLatitude());
+                    to.setLongitude(quizWalkTest.getQuizPlaces().get(0).getLongitude());
+
+                    bearing = location.bearingTo(to);
                     addSecondaryPolylines(latLngLocation);
                     System.out.println("onComplete: " + "number: " + " check." + lastKnownLocation.getLatitude() + "," + location.getLongitude());
 
