@@ -216,7 +216,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
             @Override
             public boolean onMyLocationButtonClick() {
                 CameraPosition cameraPosition = new CameraPosition.Builder().
-                        target(new LatLng(59.3311, 18.0019)).
+                        target(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())).
                         zoom(18.5f).
                         tilt(55).
                         bearing(25).

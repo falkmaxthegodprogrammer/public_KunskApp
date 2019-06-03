@@ -35,7 +35,7 @@ public class QuizWalkActivity extends FragmentActivity {
 
 
 
-    private QuizWalk qwTestObject = QuizWalksHardcodedUtil.createJockeQuizWalk();
+    private QuizWalk qwTestObject = QuizWalksHardcodedUtil.createKistaRundan();
     private Button btnStartQuizWalk;
 
     @Override
