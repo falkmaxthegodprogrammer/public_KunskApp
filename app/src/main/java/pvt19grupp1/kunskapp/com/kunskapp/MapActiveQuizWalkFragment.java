@@ -234,7 +234,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         mMap.addPolyline(lineOptions);
 
         PolylineOptions lineOptions2 = new PolylineOptions();
-        lineOptions2.add(new LatLng(59.3311, 18.0019), quizWalkTest.getLatLngPoints().get(0));
+        lineOptions2.add(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), quizWalkTest.getLatLngPoints().get(0));
         lineOptions2.color(Color.CYAN);
         lineOptions2.width(10);
         mMap.addPolyline(lineOptions2);
