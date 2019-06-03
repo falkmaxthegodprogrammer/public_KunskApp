@@ -89,6 +89,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
     private LocationCallback locationCallBack;
     private int nextQuizPlace = 0;
     private int quizPlacesTotal;
+    private float bearing = 0;
 
     public boolean isStarted() {
         return started;
@@ -219,7 +220,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                         target(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())).
                         zoom(18.5f).
                         tilt(55).
-                        bearing(25).
+                        bearing(bearing).
                         build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 return true;
@@ -283,6 +284,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     Location location = task.getResult();
                     lastKnownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                     LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    bearing = location.getBearing();
                     addSecondaryPolylines(latLngLocation);
                     System.out.println("onComplete: " + "number: " + " check." + lastKnownLocation.getLatitude() + "," + location.getLongitude());
 
