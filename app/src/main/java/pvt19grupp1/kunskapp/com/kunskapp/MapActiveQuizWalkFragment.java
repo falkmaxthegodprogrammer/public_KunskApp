@@ -226,6 +226,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
             }
         });
 
+        getLastKnownLocation();
         PolylineOptions lineOptions = new PolylineOptions();
         lineOptions.addAll(quizWalkTest.getLatLngPoints());
         lineOptions.clickable(true);
@@ -233,11 +234,7 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
         lineOptions.color(ContextCompat.getColor(getActivity(), R.color.colorAccent));
         mMap.addPolyline(lineOptions);
 
-        PolylineOptions lineOptions2 = new PolylineOptions();
-        lineOptions2.add(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), quizWalkTest.getLatLngPoints().get(0));
-        lineOptions2.color(Color.CYAN);
-        lineOptions2.width(10);
-        mMap.addPolyline(lineOptions2);
+
 
         zoomToRouteBounds(quizWalkTest.getLatLngPoints());
     }
@@ -286,11 +283,21 @@ public class MapActiveQuizWalkFragment extends Fragment implements OnMapReadyCal
                     Location location = task.getResult();
                     lastKnownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                     LatLng latLngLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    addSecondaryPolylines(latLngLocation);
                     System.out.println("onComplete: " + "number: " + " check." + lastKnownLocation.getLatitude() + "," + location.getLongitude());
+
 
                 }
             }
         });
+    }
+
+    public void addSecondaryPolylines(LatLng firstLocation) {
+        PolylineOptions lineOptions2 = new PolylineOptions();
+        lineOptions2.add(firstLocation, quizWalkTest.getLatLngPoints().get(0));
+        lineOptions2.color(Color.CYAN);
+        lineOptions2.width(10);
+        mMap.addPolyline(lineOptions2);
     }
 
     public void addMapMarkers(List<QuizPlace> quizPlaces){
