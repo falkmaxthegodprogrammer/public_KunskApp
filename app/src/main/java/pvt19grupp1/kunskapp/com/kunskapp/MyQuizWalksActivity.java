@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,7 +46,10 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
     private TabLayout tabLayout;
 
     private QuizWalkMapFragment quizWalkMapFragment;
+    private ChosenQuestionsFragment chosenQuestionsFragment;
+
     private ViewPager fragmentViewPager;
+    private QuizWalk currentQuizwalk;
 
     private ImageButton startQuizWalkIcon;
 
@@ -63,8 +67,6 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
         userQuizWalks.addAll(QuizWalkRepositoryTemp.globalTempAllQuizWalks);
 
         //QuizWalk handels = QuizWalksHardcodedUtil.createQuizWalkHandels();
-
-        QuizWalksHardcodedUtil.printQuizPlaces(user);
 
         //QuizWalksHardcodedUtil.printQuizPlaces(user);
 
@@ -87,11 +89,13 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
         });
 
         quizWalkMapFragment = new QuizWalkMapFragment();
+        chosenQuestionsFragment = new ChosenQuestionsFragment();
         fragmentViewPager = (ViewPager) findViewById(R.id.viewpager_myquizwalk_id);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.AddFragment(quizWalkMapFragment, "Översikt");
-        adapter.AddFragment(new quizWalkQuestionListFragment(), "Frågor");
+        adapter.AddFragment(chosenQuestionsFragment, "Frågor");
+
 
         fragmentViewPager.setAdapter(adapter);
         fragmentViewPager.setOffscreenPageLimit(2);
@@ -129,34 +133,38 @@ public class MyQuizWalksActivity extends BaseActivity implements OnQuizWalkListL
         mQuizWalksRecyclerAdapter = new QuizWalkListRecyclerAdapter(userQuizWalks, this);
         recyclerView.setAdapter(mQuizWalksRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
     }
-
 
     @Override
     public void onQuizWalkClick(int position) {
         quizWalkMapFragment.clearMap();
-        QuizWalk qw = mQuizWalksRecyclerAdapter.getSelectedQuestion(position);
-        textViewQuizWalkInfo.setText(qw.getName());
+        currentQuizwalk = mQuizWalksRecyclerAdapter.getSelectedQuestion(position);
 
-        List<QuizPlace> temp = qw.getQuizPlaces();
+        textViewQuizWalkInfo.setText(mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getName());
+
+        List<QuizPlace> temp = mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getQuizPlaces();
         List<LatLng> bounds = new ArrayList<>();
 
-        for(QuizPlace qp : temp) {
-            bounds.add(new LatLng(qp.getLatitude(), qp.getLongitude()));
-        }
-        quizWalkMapFragment.addMarkersFromQuizWalkList(qw.getQuizPlaces());
-        quizWalkMapFragment.drawPolylines(qw.getLatLngPoints());
+            for(QuizPlace qp : temp) {
+                bounds.add(new LatLng(qp.getLatitude(), qp.getLongitude()));
+            }
+
+        quizWalkMapFragment.addMarkersFromQuizWalkList(mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getQuizPlaces());
+        quizWalkMapFragment.drawPolylines(mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getLatLngPoints());
         quizWalkMapFragment.zoomToRouteBounds(bounds);
 
         String noPlaces, totalDistance, estimatedTime;
-        noPlaces = String.valueOf((int) qw.getQuizPlaces().size());
-        totalDistance = String.valueOf((int) qw.getTotaldistance());
-        estimatedTime = String.valueOf((int) qw.getTotaldistance() / 90);
+        noPlaces = String.valueOf((int) mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getQuizPlaces().size());
+        totalDistance = String.valueOf((int) mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getTotaldistance());
+        estimatedTime = String.valueOf((int) mQuizWalksRecyclerAdapter.getSelectedQuestion(position).getTotaldistance() / 90);
 
         textViewBottom.setText("Platser: " + noPlaces + " Sträcka: " + totalDistance + " meter." + " Ca-tid: " + estimatedTime + " minuter.");
-
     }
+
+    public QuizWalk getCurrentQuizWalk() {
+        return currentQuizwalk;
+    }
+
 }
 
 

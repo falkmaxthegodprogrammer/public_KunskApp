@@ -44,6 +44,25 @@ public class QuizWalksHardcodedUtil {
 
         qp.getQuestions().add(q1);
 
+        Question q2 = new Question("Funkar det????!?!? COOLT ISF");
+
+        q2.addAnswer(new Answer("JA", true));
+        q2.addAnswer(new Answer("NEJ", false));
+        q2.addAnswer(new Answer("KANSKE", false));
+        q2.addAnswer(new Answer("HELT OK", false));
+
+        Question q3 = new Question("FRPGA 2");
+
+        q3.addAnswer(new Answer("2", true));
+        q3.addAnswer(new Answer("2", false));
+        q3.addAnswer(new Answer("2", false));
+        q3.addAnswer(new Answer("2 OK", false));
+
+
+        qp.getQuestions().add(q1);
+        qp2.getQuestions().add(q2);
+        qp3.getQuestions().add(q3);
+
 
         handels = new QuizWalk("Handelshögskolan quiz", "Kort beskrivning, men något längre text iofs.. ", quizPlaces);
 
@@ -394,10 +413,10 @@ public class QuizWalksHardcodedUtil {
 
         Question q6 = new Question("Hur mycket bättre är DSV än KTH?");
 
-        q5.addAnswer(new Answer("Jätte mkt", true));
-        q5.addAnswer(new Answer("Ganska mkt", false));
-        q5.addAnswer(new Answer("Väldigt mkt", false));
-        q5.addAnswer(new Answer("Sådär mkt", false));
+        q6.addAnswer(new Answer("Jätte mkt", true));
+        q6.addAnswer(new Answer("Ganska mkt", false));
+        q6.addAnswer(new Answer("Väldigt mkt", false));
+        q6.addAnswer(new Answer("Sådär mkt", false));
 
         qp0.getQuestions().add(q1);
         qp0.getQuestions().add(q2);

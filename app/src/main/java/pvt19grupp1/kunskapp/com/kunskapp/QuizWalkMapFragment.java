@@ -128,14 +128,19 @@ public class QuizWalkMapFragment extends Fragment implements OnMapReadyCallback 
     }
 
     public void zoomToRouteBounds(List<LatLng> totalLatLngPoints) {
-        LatLngBounds.Builder bc = new LatLngBounds.Builder();
+        try {
+            LatLngBounds.Builder bc = new LatLngBounds.Builder();
 
-        for (LatLng point : totalLatLngPoints) {
-            bc.include(point);
+            for (LatLng point : totalLatLngPoints) {
+                if (point != null) {
+                    bc.include(point);
+                }
+            }
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 55));
+        } catch(IllegalStateException e) {
+            e.printStackTrace();
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 55));
-        float zoomLevel = mMap.getCameraPosition().zoom - 0.2f;
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(-0.5f));
     }
 
     public void addMarkersFromQuizWalkList(List<QuizPlace> quizPlaces) {

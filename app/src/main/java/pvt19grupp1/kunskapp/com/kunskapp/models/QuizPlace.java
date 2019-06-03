@@ -23,7 +23,6 @@ public class QuizPlace {
         this.latitude = googlePlace.getLat();
         this.longitude = googlePlace.getLng();
         this.questions = new ArrayList<Question>();
-
     }
 
     public QuizPlace(String name, double latitude, double longitude) {
@@ -65,8 +64,6 @@ public class QuizPlace {
     public String getName() {
         return name;
     }
-
-
 
     @Override
     public boolean equals(Object o) {
